@@ -1,0 +1,17 @@
+.row2 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.left-widget,
+.right-widget {
+    flex: 50%;
+}
+
+@media (max-width: 800px) {
+    .left-widget,
+    .right-widget{
+      flex: 100%;
+    }
+  }

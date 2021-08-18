@@ -1,0 +1,95 @@
+.nav {
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background-color: var(--container-color);
+  box-shadow: 1px 0 0 rgba(22, 8, 43, 0.1);
+  z-index: var(--z-fixed);
+  transition: 0.4s;
+  left: 0;
+  padding: 1.2rem 1.5rem 0;
+  width: 72px; /* Reduced navbar */
+}
+
+.navContainer {
+  height: 100%;
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 3rem;
+  overflow: auto;
+  scrollbar-width: none; /* For mozilla */
+}
+
+.navTitle {
+    flex-direction: row;
+}
+
+.navSubTitle {
+  font-size: var(--normal-font-size);
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: var(--text-color-light);
+}
+
+/* For Google Chrome and others */
+.navContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.navList,
+.navItems {
+  display: grid;
+}
+
+.navList {
+  margin-top: 2rem;
+  row-gap: 2.5rem;
+}
+
+.navItems {
+  row-gap: 1.5rem;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+}
+
+.navLink:hover {
+  color: var(--first-color);
+}
+
+.navIcon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+/*===== Active link =====*/
+.active {
+  color: var(--first-color);
+}
+
+/* Element opacity */
+.navLogo-name,
+.navSubTitle {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+/* Navbar expanded */
+.nav:hover {
+  width: var(--nav-width);
+}
+
+/* Visible elements */
+.nav:hover .navLogo-name {
+  opacity: 1;
+}
+
+.nav:hover .navSubTitle {
+  opacity: 1;
+  border-bottom: 1px solid var(--text-color-light);
+}

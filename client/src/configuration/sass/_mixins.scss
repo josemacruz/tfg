@@ -1,0 +1,82 @@
+@mixin elevation {
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 25px 0 rgba(0, 0, 0, 0.24),
+    0 10px 55px 0 rgba(0, 0, 0, 0.08);
+}
+@mixin transition ($duration, $delay){
+  transition: $duration cubic-bezier(0.77, 0, 0.175, 1) $delay;
+  -webkit-transition: $duration cubic-bezier(0.77, 0, 0.175, 1) $delay;
+  -moz-transition: $duration cubic-bezier(0.77, 0, 0.175, 1) $delay;
+}
+
+@mixin alert {
+  .alert {
+    display: flex;
+    padding: 0;
+    cursor: pointer;
+    align-items: center;
+    .colorSquare {
+      width: 24px;
+      height: 24px;
+      margin-right: 12px;
+
+      &.informational {
+        background-color: $severity-informational;
+      }
+      &.low {
+        background-color: $severity-low;
+      }
+      &.medium {
+        background-color: $severity-medium;
+      }
+      &.high {
+        background-color: $severity-high;
+      }
+      &.critical {
+        background-color: $severity-critical;
+      }
+    }
+    .text {
+        color: $ui-Black2;
+        font-size: 1em;
+        font-weight: 600;
+        line-height: 1.6em;
+    }
+  }
+}
+
+@mixin switchMode {
+  margin-right: 1rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0;
+  font-family: $typography;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: -0.1;
+  line-height: 1rem;
+  text-align: center;
+  width: 5.5rem;
+  height: 2rem;
+  border-width: 0;
+  border-style: none;
+  border-image: none;
+  border-radius: 0.4rem;
+  border-color: transparent;
+  outline-style: none;
+}
+@mixin severity-box {
+  text-align: center;
+  color: $ui-White;
+  font-family: $typography;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2rem;
+  overflow: hidden;
+  height: 2rem;
+  width: 4.8rem;
+  padding: 0.4rem;
+  margin: 0.25rem 0.25rem 0.25rem 0;
+  float:left;
+}

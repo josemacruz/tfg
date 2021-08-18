@@ -1,0 +1,406 @@
+@import "~ag-grid-community/src/styles/ag-grid.scss";
+@import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin";
+@import "../../configuration/sass/fonts";
+@import "../../configuration/sass/colors";
+
+.ag-theme-alpine {
+  // headerTableColors
+  &.color1 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #577ee8,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color2 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #acd356,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color3 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #e12c50,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+    .ag-row-odd {
+      background-color: #fff;
+    }
+  }
+  &.color4 {
+    @include ag-theme-alpine(
+      (
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color5 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #f83f37,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color6 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #f0b038,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color7 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #50d3a5,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color8 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #7c2b4d,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color9 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #c46ed5,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color10 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #0d51a5,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color11 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #42dbfa,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color12 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #0a2d53,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+  &.color13 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: $ui-White2,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+    .ag-row-odd {
+      background-color: transparent;
+      background-color: transparent;
+    }
+  }
+  &.color14 {
+    @include ag-theme-alpine(
+      (
+        header-background-color: #e8e8e8,
+        alpine-active-color: #577ee8,
+        border-radius: 5px,
+        borders: false,
+        borders-critical: false,
+        borders-secondary: true,
+        font-family: $typography,
+      )
+    );
+    .ag-paging-panel {
+      border-top: none;
+    }
+  }
+
+  // headerTableText
+  &.text1 {
+    .ag-header-cell-label {
+      color: #577ee8;
+    }
+  }
+  &.text2 {
+    .ag-header-cell-label {
+      color: #acd356;
+    }
+  }
+  &.text3 {
+    .ag-header-cell-label {
+      color: #e12c50;
+    }
+  }
+  &.text4 {
+    .ag-header-cell-label {
+      color: #2b334a;
+    }
+  }
+  &.text5 {
+    .ag-header-cell-label {
+      color: #fc381d;
+    }
+  }
+  &.text6 {
+    .ag-header-cell-label {
+      color: #f1af00;
+    }
+  }
+  &.text7 {
+    .ag-header-cell-label {
+      color: #00d3a4;
+    }
+  }
+  &.text8 {
+    .ag-header-cell-label {
+      color: #7b144d;
+    }
+  }
+  &.text9 {
+    .ag-header-cell-label {
+      color: #c039d5;
+    }
+  }
+  &.text10 {
+    .ag-header-cell-label {
+      color: #0f51a5;
+    }
+  }
+  &.text11 {
+    .ag-header-cell-label {
+      color: #40dcff;
+    }
+  }
+  &.text12 {
+    .ag-header-cell-label {
+      color: #0a2d53;
+    }
+  }
+  &.text13 {
+    .ag-header-cell-label {
+      color: #2b334a;
+    }
+  }
+  &.text14 {
+    .ag-header-cell-label {
+      color: #ffffff;
+    }
+  }
+
+  .ag-header-cell-label {
+    // color: #2b334a;
+    font-family: $typography;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+
+  .ag-center-cols-container {
+    div {
+      color: #6c7a88;
+      font-family: $typography;
+      font-size: 14px;
+      letter-spacing: 0;
+      line-height: 18px;
+      border-bottom: 1px solid #ced3d7;
+    }
+  }
+  .ag-header {
+    // or write CSS selectors to make customisations beyond what the parameters support
+    text-style: italic;
+  }
+
+  .ag-paging-panel {
+    span {
+      color: #2b334a;
+    }
+  }
+
+  .ag-paging-page-summary-panel {
+    .ag-paging-button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .ag-paging-button-wrapper {
+      box-sizing: border-box;
+      height: 40px;
+      width: 40px;
+      border: 1px solid #577ee8;
+      border-radius: 20px;
+    }
+
+    .ag-paging-description {
+      order: -1;
+    }
+  }
+
+  .ag-margin {
+    margin: 4px !important;
+  }
+
+  .ag-filter-body-wrapper {
+    background: white;
+
+    .ag-filter-select {
+      .ag-wrapper {
+        height: 40px;
+        margin-top: 9px;
+      }
+    }
+    .ag-filter-body {
+      input {
+        height: 40px;
+        margin-top: 9px;
+      }
+    }
+  }
+
+  .selected-cell{
+    .ag-cell-value{
+      display:none;
+    }
+  }
+
+  .selected-column{
+    &.ag-header-cell{
+      padding-right: 0;
+    }
+    .ag-labeled.ag-header-select-all{
+      margin-right: 0;
+    }
+    
+    .ag-header-cell-label{
+      padding: 0 10px;
+    }
+  }
+}
+
+.ag-cell-wrapper {
+  border-bottom: none !important;
+  .ag-selection-checkbox {
+    border-bottom: none !important;
+  }
+}
