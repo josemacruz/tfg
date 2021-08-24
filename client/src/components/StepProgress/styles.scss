@@ -5,6 +5,23 @@
 	padding: 2rem;
 	display: flex;
 	flex-direction: column;
+
+	.stepHeader {
+		height: 20%;
+	}
+	.stepContents {
+		height: 100%;
+		display: flex;
+    justify-content: center;
+    align-items: center;
+	}
+	.stepFooter {
+		height:	20%;
+		display: flex;
+    justify-content: center;
+    align-items: center;
+		flex-direction: column;
+	}
 }
 .closeButton {
 	float: right;
