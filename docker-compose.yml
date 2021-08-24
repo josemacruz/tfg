@@ -35,6 +35,9 @@ services:
     image: myapp-client
     container_name: myapp-react-client
     command: npm run start
+    environment: 
+      - REACT_APP_NAME=client
+      - CHOKIDAR_USEPOLLING=true
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
@@ -45,7 +48,7 @@ services:
     networks:
       - app-network
   iot-agent:
-    image: fiware/iotagent-json:latest
+    image: fiware/iotagent-ul:latest
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:
@@ -59,20 +62,19 @@ services:
       - "4041:4041"
       - "7896:7896"
     environment:
-      - "IOTA_CB_HOST=orion"
-      - "IOTA_CB_PORT=1026"
-      - "IOTA_NORTH_PORT=4041"
-      - "IOTA_REGISTRY_TYPE=mongo"
-      - "IOTA_LOG_LEVEL=DEBUG"
-      - "IOTA_TIMESTAMP=true"
-      - "IOTA_CB_NGSI_VERSION=v2"
-      - "IOTA_AUTOCAST=true"
-      - "IOTA_MONGO_HOST=mongo"
-      - "IOTA_MONGO_PORT=27017"
-      - "IOTA_MONGO_DB=iotagentjson"
-      - "IOTA_HTTP_PORT=7896"
-      - "IOTA_PROVIDER_URL=http://iot-agent:4041"
-      - "IOTA_DEFAULT_RESOURCE=/iot/json"
+      - IOTA_CB_HOST=orion
+      - IOTA_CB_PORT=1026
+      - IOTA_NORTH_PORT=4041
+      - IOTA_REGISTRY_TYPE=mongodb
+      - IOTA_LOG_LEVEL=DEBUG
+      - IOTA_TIMESTAMP=true
+      - IOTA_CB_NGSI_VERSION=v2
+      - IOTA_AUTOCAST=true
+      - IOTA_MONGO_HOST=mongo
+      - IOTA_MONGO_PORT=27017
+      - IOTA_MONGO_DB=iotagentul
+      - IOTA_HTTP_PORT=7896
+      - IOTA_PROVIDER_URL=http://iot-agent:4041
   # Perseo-Core
   perseo-core:
     image: fiware/perseo-core
@@ -110,7 +112,7 @@ services:
       - "1026"
     ports:
       - "1026:1026" # localhost:1026
-    command: -dbhost mongo-db -logLevel DEBUG
+    command: -dbhost mongo -logLevel DEBUG
     healthcheck:
       test: curl --fail -s http://orion:1026/version || exit 1
       interval: 5s

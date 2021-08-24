@@ -1,12 +1,12 @@
 export const readDevices = async () => {
 
   const answer = new Promise ((resolve, reject) => {
-    fetch('/v2/entities/', {
+    fetch('http://172.19.0.6:8080/typeList', {
         method: 'GET',
-        headers: {
-          'Fiware-Service': 'devices',
-          'Fiware-ServicePath': '/',
-        },
+        // headers: {
+        //   'Fiware-Service': 'devices',
+        //   'Fiware-ServicePath': '/',
+        // },
       })
         .then(async (response) => {
           response = await response.json();

@@ -25,7 +25,7 @@ function Widget(props) {
 		rowsData,
 		columnsDef,
 	} = props;
-
+	console.log(handleAdd)
   return (
     <Card>
 			<div className="container">

@@ -1,13 +1,8 @@
-FROM node:14
-
+FROM node
 WORKDIR /app
-
-COPY . /app/
-
-ENV REACT_APP_REST=/api
-
-RUN npm install
-
-RUN npm run build
-
+COPY package.json .
+RUN npm install --force
+COPY . .
+ENV REACT_APP_NAME=client
+EXPOSE 3000
 CMD ['npm',"start"]

@@ -22,10 +22,7 @@ function BasicTable(props) {
     var cols = params.columnApi.getAllColumns();
     cols.forEach(function (col) {
       var colDef = col.getUserProvidedColDef();
-      console.log(
-        colDef.headerName + ', Column ID = ' + col.getId(),
-        JSON.stringify(colDef)
-      );
+  
     });
   };
 

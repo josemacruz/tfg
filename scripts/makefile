@@ -1,6 +1,6 @@
 start:
 	@echo Iniciando aplicación
-	docker-compose up -d
+	docker-compose up
 	google-chrome "http://localhost:3000" &
 	mongodb-compass &
 

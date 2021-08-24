@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-dupe-keys */
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getDevices } from '../../services/redux/devices/actions';
 import './styles.scss';
 import Widget from '../../components/Widget';
 
 function Home() {
-  
   const devices = useSelector((state) => state.get('devices').get('list').toJS());
   useEffect(() => {
   getDevices();
