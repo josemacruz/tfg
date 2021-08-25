@@ -1,11 +1,12 @@
 import { Modal } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Widget from '../../components/Widget';
 import './styles.scss';
 import { AddIssue } from '../../components/Modals/AddIssue';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import colors from '../../configuration/colors';
+import { Profile } from '../../components/Profile';
 
 const widgetConfig =  {
   id: 'incidencias',
@@ -84,6 +85,8 @@ const data = [
 function Widgets() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+  const ref = useRef(null);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -99,11 +102,29 @@ function Widgets() {
 
     setOpenAlert(false);
   };
+
+  const handleOpenProfile = () => {
+    setOpenProfile(true);
+  };
+
+  const handleClickOutside = (event) => {
+    console.log(event)
+    if (ref.current && !ref.current.contains(event.target)) {
+      setOpenProfile(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+        document.removeEventListener('click', handleClickOutside, true);
+    };
+  });
   return (
-    <div className="dashboardContainer">
+      <div className="dashboardContainer">
         <Widget
           title="Listado de incidencias"
-          handleProfile
+          handleProfile={handleOpenProfile}
           handleAdd={handleOpen}
           addButton="Añadir incidencia"
           data={data}
@@ -118,10 +139,15 @@ function Widgets() {
           </div>
         </Modal>
         <Snackbar open={openAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
-					<Alert onClose={handleCloseAlert} severity="success">
-						This is a success message!
-					</Alert>
-			</Snackbar>
+          <Alert onClose={handleCloseAlert} severity="success">
+            This is a success message!
+          </Alert>
+      </Snackbar>
+      {openProfile && (
+        <div ref={ref}>
+          <Profile />
+        </div>
+      )}
     </div>
   );
 }

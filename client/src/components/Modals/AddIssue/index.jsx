@@ -34,6 +34,7 @@ export function AddIssue({ handleClose, setOpen }) {
 				break;
 			case 'criticality':
 				setCriticality(value);
+				break;
 			case 'device':
 				setDevice(value);
 				break;

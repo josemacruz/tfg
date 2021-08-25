@@ -1,0 +1,32 @@
+.profileContainer {
+	background-color: var(--body-color);
+	height: 100%;
+	width: 500px;
+	position: absolute;
+	right: 0px;
+	top: 0;
+	z-index: 1;
+	display: flex;
+	padding-top: 65px;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+
+	.profileHeader {
+		height: 15%;
+    background: aliceblue;
+	}
+
+	.profileContents {
+		height: 100%;
+
+		.stepContainer {
+			width: 31rem;
+		}
+	}
+
+	.profileFooter {
+		height: 10%;
+		background: aliceblue;
+	}
+}
