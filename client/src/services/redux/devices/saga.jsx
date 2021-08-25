@@ -5,7 +5,7 @@ import {
   all,
   fork
 } from 'redux-saga/effects';
-import * as Api from './../../api/devices';
+import * as Api from '../../api/devices';
 import * as TYPES from './types';
 
 export function* getDevicesThroughApi() {

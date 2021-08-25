@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from 'react'
-import BasicTable from '../../components/BasicTable';
+import BasicTable from '../BasicTable';
 import styled from 'styled-components';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import './styles.scss';

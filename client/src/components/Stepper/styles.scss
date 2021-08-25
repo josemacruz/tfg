@@ -8,6 +8,13 @@
 
 	.stepHeader {
 		height: 20%;
+
+		.MuiStepIcon-root.MuiStepIcon-completed {
+			color: var(--first-color);
+		}
+		.MuiStepIcon-root.MuiStepIcon-active {
+			color: var(--first-color);
+		}
 	}
 	.stepContents {
 		height: 100%;
@@ -21,6 +28,11 @@
     justify-content: center;
     align-items: center;
 		flex-direction: column;
+
+		.MuiButton-containedPrimary {
+			color: #fff;
+			background-color: var(--first-color);
+		}
 	}
 }
 .closeButton {

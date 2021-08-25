@@ -5,43 +5,50 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import './styles.scss'
 import { VscChromeClose } from 'react-icons/vsc';
-import { Button, TextField, Select } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
-function getSteps() {
-  return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-}
+export default function StepComponent(props) {
 
-export default function StepProgress(props) {
-	const [activeStep, setActiveStep] = useState(1);
-	const steps = getSteps();
+	const {
+		steps,
+		closeModal,
+		children,
+		activeStep,
+		setActiveStep,
+		setOpen,
+	} = props;
+
+	const ref = useRef(null);
 	const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
-	const ref = useRef(null);
 	const handleClickOutside = (event) => {
 		console.log(event.target)
 			if (ref.current && !ref.current.contains(event.target)) {
-					props.closeModal();
+					closeModal();
 			}
 	};
+	
+	const handleFinish = () => {
+		setOpen(true);
+		closeModal()
+	}
 
 	useEffect(() => {
 		document.addEventListener('click', handleClickOutside, true);
 		return () => {
 				document.removeEventListener('click', handleClickOutside, true);
 		};
-});
+	});
 
   return (
 		<div className="stepContainer" ref={ref}>
 			<div className="stepHeader">
-				<VscChromeClose className="closeButton" onClick={props.closeModal} />
-				<Stepper alternativeLabel activeStep={activeStep}>
+				<VscChromeClose className="closeButton" onClick={closeModal} />
+				<Stepper alternativeLabel activeStep={activeStep} classe>
 					{steps.map((label) => (
 							<Step key={label}>
 								<StepLabel>{label}</StepLabel>
@@ -50,25 +57,32 @@ export default function StepProgress(props) {
 				</Stepper>
 			</div>
 			<div className="stepContents">
-				{/* 
-					TODO: Crear formularios
-				<TextField id="outlined-basic" label="Outlined" variant="outlined" />
-				<Select
-          multiple
-       /> */}
+				{children}
 			</div>
 			<div className="stepFooter">
 				<div>
-					<Button disabled={activeStep === 0} onClick={handleBack}>
-						Back
-					</Button>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={handleNext}
-					>
-						{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-					</Button>
+				{activeStep === steps.length ? (
+          <div>
+            <Button onClick={handleFinish}>
+							Finish
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <div>
+              <Button disabled={activeStep === 0} onClick={handleBack}>
+                Back
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        )}
 				</div>
 			</div>
 		</div>

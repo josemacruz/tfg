@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux-immutable';
-import devices from './../redux/devices/reducer';
+import devices from './devices/reducer';
 
 export default combineReducers({
     devices,
