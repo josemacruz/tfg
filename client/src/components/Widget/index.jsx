@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import React from 'react'
+import React, { useMemo } from 'react'
 import BasicTable from '../BasicTable';
 import styled from 'styled-components';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import './styles.scss';
+import { formatToData } from '../../helpers/formatToData';
 
 const Card = styled.div`
   height: 50vh;
@@ -22,11 +21,15 @@ function Widget(props) {
 		handleAdd,
 		addButton,
 		handleProfile,
-		rowsData,
-		columnsDef,
+		data,
+		config,
 	} = props;
-	console.log(handleAdd)
-  return (
+
+	const [rowsData, columnsDef] = useMemo(() => formatToData(
+		config, data
+		), [config, data]);
+	
+	return (
     <Card>
 			<div className="container">
 				<div className="title">
@@ -46,7 +49,11 @@ function Widget(props) {
 					</div>
 				</div>
 				<div className="tableContainer">
-					<BasicTable />
+					<BasicTable
+						rowsData={rowsData}
+						columnsData={columnsDef}
+						config={config}
+					/>
 				</div>
 			</div>
     </Card>

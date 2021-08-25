@@ -26,7 +26,6 @@ export default function StepComponent(props) {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 	const handleClickOutside = (event) => {
-		console.log(event.target)
 			if (ref.current && !ref.current.contains(event.target)) {
 					closeModal();
 			}

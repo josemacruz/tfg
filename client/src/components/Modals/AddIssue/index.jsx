@@ -16,7 +16,6 @@ export function AddIssue({ handleClose, setOpen }) {
 	const [device, setDevice] = useState('');
 
 	const handleOnChange = (name, value) => {
-		console.log(name, value)
 		switch(name) {
 			case 'description':
 				setDescription(value);
