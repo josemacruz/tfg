@@ -5,6 +5,7 @@ import {
   all,
   fork
 } from 'redux-saga/effects';
+import { formatFromApi } from '../../../models/Request/utils/formatData';
 import * as Api from '../../api/issues';
 import * as TYPES from './types';
 
@@ -15,6 +16,11 @@ export function* getIssuesThroughApi() {
 		);
 		if ( response.status === 200) {
 			const devices = response.data;
+			const issues = response.data.map((obj) => {
+				console.log(obj)
+				return formatFromApi(obj);
+			});
+			console.log('issues', issues)
 			yield put({
 				type: TYPES.GET_ISSUES_SUCCESS,
 				payload: devices,
@@ -52,7 +58,7 @@ export function* addIssueThroughApi() {
 		}
 	} catch (error) {
 		yield put({
-			
+
 			type: TYPES.ADD_ISSUE_ERROR,
 			payload: error,
 		});
