@@ -187,6 +187,7 @@ router.get('/subscription', (req, res) => {
 });
 
 router.get('/api/issues', (req, res) => {
+  axios.defaults.headers.common['Fiware-Service'] = 'issues';
   axios.get(orionUrl + ":1026/v2/entities")
     .then(function (response) {
       console.log('response', response);

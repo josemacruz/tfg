@@ -7,6 +7,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import colors from '../../configuration/colors';
 import { Profile } from '../../components/Profile';
+import { useSelector } from 'react-redux';
+import { getIssues, addIssue } from '../../services/redux/issues/actions';
 
 const widgetConfig =  {
   id: 'incidencias',
@@ -86,6 +88,12 @@ function Widgets() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const value = useSelector(state => state.get('issues').get('list').toJS());
+  useEffect(() => {
+    getIssues();
+    //addIssue();
+  }, []);
+  console.log('values', value)
   const ref = useRef(null);
   const handleOpen = () => {
     setOpen(true);
