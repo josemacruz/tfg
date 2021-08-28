@@ -91,9 +91,8 @@ function Widgets() {
   const value = useSelector(state => state.get('issues').get('list').toJS());
   useEffect(() => {
     getIssues();
-    //addIssue();
   }, []);
-  console.log('values', value)
+  console.log(value)
   const ref = useRef(null);
   const handleOpen = () => {
     setOpen(true);
@@ -116,7 +115,6 @@ function Widgets() {
   };
 
   const handleClickOutside = (event) => {
-    console.log(event)
     if (ref.current && !ref.current.contains(event.target)) {
       setOpenProfile(false);
     }
@@ -135,7 +133,7 @@ function Widgets() {
           handleProfile={handleOpenProfile}
           handleAdd={handleOpen}
           addButton="Añadir incidencia"
-          data={data}
+          data={value}
           config={widgetConfig.config}
         />
         <Modal
@@ -161,4 +159,3 @@ function Widgets() {
 }
 
 export default Widgets;
-

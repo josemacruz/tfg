@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import formatClassname from './utils';
 import getColumnDefs from './dataParsers';
@@ -11,7 +11,6 @@ function BasicTable(props) {
   const {
     config, rowsData, columnsData,
   } = props;
-  console.log('BasicTable', props);
 
   const columnDefs = useMemo(() => getColumnDefs(columnsData), [columnsData]);
   const rowData = useMemo(() => rowsData, [rowsData]);
@@ -23,7 +22,7 @@ function BasicTable(props) {
     flex: 1,
     minWidth: 100,
     resizable: true,
-  })
+  });
   const [gridApi, setGridApi] = useState(null);
   // * --------------------- [STATE] --------------------- * //
 
@@ -59,8 +58,6 @@ function BasicTable(props) {
           pagination
           paginationAutoPageSize
           rowSelection="multiple"
-          suppressPaginationPanel
-          suppressRowClickSelection
           components
         />
     </div>

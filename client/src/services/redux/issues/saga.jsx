@@ -15,15 +15,14 @@ export function* getIssuesThroughApi() {
 			Api.readIssues,
 		);
 		if ( response.status === 200) {
-			const devices = response.data;
 			const issues = response.data.map((obj) => {
-				console.log(obj)
+				// console.log(formatFromApi(obj))
 				return formatFromApi(obj);
 			});
 			console.log('issues', issues)
 			yield put({
 				type: TYPES.GET_ISSUES_SUCCESS,
-				payload: devices,
+				payload: issues,
 			})
 		} else {
 			yield put({

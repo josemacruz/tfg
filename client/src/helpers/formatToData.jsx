@@ -102,6 +102,5 @@ export const formatToData  = (configuration, data) => {
       });
     });
   }
-	console.log(rows, columns)
   return [rows, columns];
 }

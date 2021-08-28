@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import * as TYPES from './types';
 import { Map, List } from 'immutable';
 
@@ -15,12 +16,13 @@ export default (state = initialState, { type, payload }) => {
 
     /** GET ALL DEVICES FROM DB TO STATE */
     case TYPES.GET_ISSUES_SUCCESS: {
-      const devicesId = payload.map(o => o.id);
-      const devices = state
+      console.log('reducer', payload)
+      const issuesId = payload.map(o => o.id);
+      const issues = state
         .get('list')
         .toJS()
-        .filter(o => !devicesId.includes(o.id));
-      aux = state.set('list', List([...devices, ...payload]));
+        .filter(o => !issuesId.includes(o.id));
+      aux = state.set('list', List([...issues, ...payload]));
       return aux;
 		}
 
