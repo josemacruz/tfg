@@ -9,8 +9,9 @@ import colors from '../../configuration/colors';
 import { Profile } from '../../components/Profile';
 import { useSelector } from 'react-redux';
 import { getIssues, addIssue } from '../../services/redux/issues/actions';
+import { TableProfile } from '../../components/TableProfile';
 
-const widgetConfig =  {
+export const widgetConfig =  {
   id: 'incidencias',
   config: {
     appearance: {
@@ -37,62 +38,16 @@ const widgetConfig =  {
   }
 };
 
-const data = [
-  {
-    "id": "service-request:638344",
-    "status": "closed",
-    "description": "Acera en mal estado con bordillo partido en dos",
-    "family": "Alumbrado",
-    "subFamily": "Luminaria",
-    "dateCreated": "2010-04-14T06:37:38-08:00",
-    "orderType": "Bordillo",
-    "category": "Otros",
-    "criticality": "low",     
-  },
-  {
-    "id": "service-request:638344",
-    "status": "closed",
-    "description": "Acera en mal estado con bordillo partido en dos",
-    "family": "Alumbrado",
-    "subFamily": "Luminaria",
-    "dateCreated": "2010-04-14T06:37:38-08:00",
-    "orderType": "Bordillo",
-    "category": "Otros",
-    "criticality": "low",     
-  },
-  {
-    "id": "service-request:638344",
-    "status": "closed",
-    "description": "Acera en mal estado con bordillo partido en dos",
-    "family": "Alumbrado",
-    "subFamily": "Luminaria",
-    "dateCreated": "2010-04-14T06:37:38-08:00",
-    "orderType": "Bordillo",
-    "category": "Otros",
-    "criticality": "high",     
-  },
-  {
-    "id": "service-request:638344",
-    "status": "closed",
-    "description": "Acera en mal estado con bordillo partido en dos",
-    "family": "Alumbrado",
-    "subFamily": "Luminaria",
-    "dateCreated": "2010-04-14T06:37:38-08:00",
-    "orderType": "Bordillo",
-    "category": "Otros",
-    "criticality": "medium",     
-  },
-];
-
 function Widgets() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [openTableProfile, setOpenTableProfile]= useState(false);
   const value = useSelector(state => state.get('issues').get('list').toJS());
   useEffect(() => {
     getIssues();
   }, []);
-  console.log(value)
+  console.log(value, 'oa');
   const ref = useRef(null);
   const handleOpen = () => {
     setOpen(true);
@@ -114,9 +69,14 @@ function Widgets() {
     setOpenProfile(true);
   };
 
+  const handleOpenTableProfile = () => {
+    setOpenTableProfile(true);
+  }
+
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setOpenProfile(false);
+      setOpenTableProfile(false);
     }
   };
 
@@ -130,7 +90,7 @@ function Widgets() {
       <div className="dashboardContainer">
         <Widget
           title="Listado de incidencias"
-          handleProfile={handleOpenProfile}
+          handleProfile={handleOpenTableProfile}
           handleAdd={handleOpen}
           addButton="Añadir incidencia"
           data={value}
@@ -152,6 +112,11 @@ function Widgets() {
       {openProfile && (
         <div ref={ref}>
           <Profile />
+        </div>
+      )}
+      {openTableProfile && (
+        <div ref={ref}>
+          <TableProfile />
         </div>
       )}
     </div>

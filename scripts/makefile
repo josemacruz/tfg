@@ -1,5 +1,6 @@
 start:
 	@echo Iniciando aplicación
+	service mongodb stop
 	docker-compose up
 	google-chrome "http://localhost:3000" &
 	mongodb-compass &

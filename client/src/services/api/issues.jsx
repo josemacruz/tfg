@@ -1,7 +1,7 @@
 export const readIssues = async () => {
 
   const answer = new Promise ((resolve, reject) => {
-    fetch('http://172.21.0.4:8080/api/issues', {
+    fetch('http://172.20.0.5:8080/api/issues', {
         method: 'GET',
       })
         .then(async (response) => {
@@ -20,7 +20,7 @@ export const readIssues = async () => {
 export const addIssue = async () => {
 
   const answer = new Promise ((resolve, reject) => {
-    fetch('http://172.21.0.4:8080/api/issues', {
+    fetch('http://172.20.0.5:8080/api/issues', {
         method: 'POST',
       })
         .then(async (response) => {

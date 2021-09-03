@@ -19,7 +19,8 @@ services:
     environment:
       - NODE_ENV=development
     networks:
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.5"
   mongo:
     image: mongo:latest
     volumes:
@@ -27,7 +28,8 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.2"
   client:
     build:
       context: ./client
@@ -46,7 +48,8 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.8"
   iot-agent:
     image: fiware/iotagent-ul:latest
     hostname: iot-agent
@@ -54,7 +57,8 @@ services:
     depends_on:
       - mongo
     networks: 
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.4"
     expose:
       - "4041"
       - "7896"
@@ -82,14 +86,16 @@ services:
       - PERSEO_FE_URL=http://perseo-fe:9090
       - MAX_AGE=6000
     networks:
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.6"
     depends_on:
       - mongo
   # Perseo-fe
   perseo-fe:
     image: fiware/perseo
     networks:
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.7"
     ports:
       - "9090:9090"
     depends_on:
@@ -107,7 +113,8 @@ services:
     depends_on:
       - mongo
     networks:
-      - app-network
+      app-network:
+        ipv4_address: "172.20.0.3"
     expose:
       - "1026"
     ports:
@@ -119,7 +126,9 @@ services:
 
 networks:
     app-network:
-        driver: bridge
+        ipam:
+          config:
+            - subnet: 172.20.0.0/16
 
 volumes:
     data-volume:

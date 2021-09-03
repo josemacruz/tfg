@@ -1,5 +1,6 @@
 import React from 'react';
 import Widget from '../../components/Widget';
+import { widgetConfig } from '../Widgets/Widgets';
 
 function Rules() {
   return (
@@ -9,6 +10,8 @@ function Rules() {
           handleProfile
           handleAdd
           addButton="Añadir regla"
+          data={[]}
+          config={widgetConfig.config}
         />
     </div>
   );

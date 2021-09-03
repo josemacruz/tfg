@@ -16,6 +16,7 @@ export default function StepComponent(props) {
 		activeStep,
 		setActiveStep,
 		setOpen,
+		sendIssue,
 	} = props;
 
 	const ref = useRef(null);
@@ -33,7 +34,8 @@ export default function StepComponent(props) {
 	
 	const handleFinish = () => {
 		setOpen(true);
-		closeModal()
+		sendIssue();
+		closeModal();
 	}
 
 	useEffect(() => {

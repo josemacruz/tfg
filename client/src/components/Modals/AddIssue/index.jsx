@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Step1 } from "./steps/step1";
 import { Step2 } from "./steps/step2";
 import './styles.scss';
+import { addIssue } from "../../../services/redux/issues/actions";
 
 export function AddIssue({ handleClose, setOpen }) {
 	const [activeStep, setActiveStep] = useState(0);
@@ -43,6 +44,40 @@ export function AddIssue({ handleClose, setOpen }) {
 		}
 	};
 
+	const sendIssue = () => {
+		const id = Math.floor(Math.random() * 999999);
+		const newIssue = {
+			"id": `service-request:${id}`,
+			"type": "Open311ServiceRequest",
+			"status": {
+				"type": "Property",
+				"value": "open"
+			},
+			"description": {
+					"value": description,
+			},
+			"service_code": {
+					"value": 234
+			},
+			"status_notes": {
+					"value": "Duplicate request."
+			},
+			"service_name": {
+					"value": "Aceras"
+			},
+			"service_request_id": {
+					"value": 638344
+			},
+			"attributes": {
+					"value": {
+							"ISSUE_TYPE": ["Bordillo"],
+
+					}
+			},
+		};
+		addIssue(newIssue);
+	}
+
 	return (
 		<StepComponent 
 			closeModal={handleClose}
@@ -50,6 +85,7 @@ export function AddIssue({ handleClose, setOpen }) {
 			activeStep={activeStep}
 			setActiveStep={setActiveStep}
 			setOpen={setOpen}
+			sendIssue={sendIssue}
 		>
 		{activeStep === 0 ? (
 			<Step1

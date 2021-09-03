@@ -17,7 +17,7 @@ def redondearSensores(num):
 
 host_type = 'Ubuntuu'
 API_KEY = '4jggokgpepnvsb2uv4s40d59ov'
-idashost = '172.19.0.3'
+idashost = '172.20.0.4'
 ul20port = '7896'
 
 

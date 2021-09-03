@@ -1,0 +1,50 @@
+.wrapper {
+	margin: 5px;
+	height: 40px;
+	width: 71px;
+	border-radius: 10px;
+	background-color: #FFFFFF;
+	box-shadow: 0 0 7px 0 rgba(36,79,194,0.13), 0 8px 20px 0 rgba(211,217,235,0.27);
+}
+
+.color {
+	width: 26px;
+	height: 26px;
+	border-radius: 7px;
+	float: left;
+	margin-top: 4px;
+	margin-left: 4px;
+	border: 1px solid #CED3D7;
+}
+
+.swatch {
+	padding: 3px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.cover {
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+}
+
+.i {
+	font-size: 25px;
+}
+
+.github-picker {
+	span {
+			div {
+					margin: 3px;
+					span {
+							div {
+									border: 1px solid #CED3D7;
+									border-radius: 5px;
+							}
+					}
+			}
+	}
+}
