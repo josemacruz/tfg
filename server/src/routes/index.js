@@ -71,7 +71,7 @@ router.post('/api/ruleIssues', (req, res) => {
 });
 
 router.get('/api/devices', (req, res) => {
-  axios.defaults.headers.common['Fiware-Service'] = 'openiot';
+  axios.defaults.headers.common['Fiware-Service'] = 'iotAgent';
   axios.get(orionUrl + ":1026/v2/entities")
     .then(function (response) {
       res.json(response.data);

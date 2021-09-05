@@ -1,10 +1,9 @@
 import React from 'react';
 import { Router } from '@reach/router';
 import Home from './pages/Home/Home';
-import Rules from './pages/Rules/Rules';
 import './App.scss';
 import Header from './components/Header/Header';
-import Widgets from './pages/Widgets/Widgets';
+import Issues from './pages/ListIssues/Issues';
 
 function App() {
   return (
@@ -12,8 +11,7 @@ function App() {
       <Header />
       <Router>
         <Home path="/" />
-        <Rules path="/rules" />
-        <Widgets path="/widgets" />
+        <Issues path="/issues" />
       </Router>
     </div>
   );

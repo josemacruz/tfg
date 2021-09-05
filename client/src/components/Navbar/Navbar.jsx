@@ -3,7 +3,6 @@ import { Link } from '@reach/router';
 import React from 'react';
 import { HiHome } from 'react-icons/hi';
 import {MdWidgets} from 'react-icons/md';
-import { FaPencilRuler } from 'react-icons/fa';
 import './styles.scss';
 
 export default function Navbar() {
@@ -22,13 +21,9 @@ export default function Navbar() {
                 <HiHome className="navIcon" />
                 <span className="navLogo-name">Home</span>
               </Link>
-              <Link className="navLink active" to="/rules">
-                <FaPencilRuler className="navIcon" />
-                <span className="navLogo-name">Rules</span>
-              </Link>
-              <Link className="navLink active" to="/widgets">
+              <Link className="navLink active" to="/issues">
                 <MdWidgets className="navIcon" />
-                <span className="navLogo-name">Widgets</span>
+                <span className="navLogo-name">Incidencias</span>
               </Link>
             </div>
           </div>

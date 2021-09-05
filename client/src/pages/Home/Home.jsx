@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { getDevices } from '../../services/redux/devices/actions';
 import './styles.scss';
 import Widget from '../../components/Widget';
-import { widgetConfig } from '../Widgets/Widgets';
+import { widgetConfig } from '../ListIssues/Issues';
 
 function Home() {
   const devices = useSelector((state) => state.get('devices').get('list').toJS());

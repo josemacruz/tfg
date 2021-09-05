@@ -1,5 +1,5 @@
 import StepComponent from "../../Stepper";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Step1 } from "./steps/step1";
 import { Step2 } from "./steps/step2";
 import './styles.scss';
@@ -59,9 +59,6 @@ export function AddIssue({ handleClose, setOpen }) {
 			"service_code": {
 					"value": 234
 			},
-			"status_notes": {
-					"value": "Duplicate request."
-			},
 			"service_name": {
 					"value": "Aceras"
 			},
@@ -71,10 +68,12 @@ export function AddIssue({ handleClose, setOpen }) {
 			"attributes": {
 					"value": {
 							"ISSUE_TYPE": ["Bordillo"],
-
+							"CATEGORY_TYPE": [],
+							"CRITICALITY": [],
 					}
 			},
 		};
+		console.log('newIssues', newIssue)
 		addIssue(newIssue);
 	}
 

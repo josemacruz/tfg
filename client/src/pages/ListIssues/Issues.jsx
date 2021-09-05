@@ -1,6 +1,5 @@
 import { Modal } from '@material-ui/core';
 import React, { useEffect, useRef, useState } from 'react';
-import Widget from '../../components/Widget';
 import './styles.scss';
 import { AddIssue } from '../../components/Modals/AddIssue';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -10,6 +9,8 @@ import { Profile } from '../../components/Profile';
 import { useSelector } from 'react-redux';
 import { getIssues, addIssue } from '../../services/redux/issues/actions';
 import { TableProfile } from '../../components/TableProfile';
+import DirectoryTable from '../../components/List';
+import Pagination from '../../components/Pagination';
 
 export const widgetConfig =  {
   id: 'incidencias',
@@ -38,11 +39,10 @@ export const widgetConfig =  {
   }
 };
 
-function Widgets() {
+function Issues() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const [openTableProfile, setOpenTableProfile]= useState(false);
   const value = useSelector(state => state.get('issues').get('list').toJS());
   useEffect(() => {
     getIssues();
@@ -69,14 +69,9 @@ function Widgets() {
     setOpenProfile(true);
   };
 
-  const handleOpenTableProfile = () => {
-    setOpenTableProfile(true);
-  }
-
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setOpenProfile(false);
-      setOpenTableProfile(false);
     }
   };
 
@@ -88,14 +83,15 @@ function Widgets() {
   });
   return (
       <div className="dashboardContainer">
-        <Widget
-          title="Listado de incidencias"
-          handleProfile={handleOpenTableProfile}
-          handleAdd={handleOpen}
-          addButton="Añadir incidencia"
-          data={value}
-          config={widgetConfig.config}
-        />
+       <DirectoryTable
+        datas={value}
+        handleAdd={handleOpen}
+       />
+       <Pagination
+         usersPerPage={5}
+         totalUsers={100}
+         paginate={() => null}
+       />
         <Modal
           open={open}
           onClose={handleClose}
@@ -114,13 +110,8 @@ function Widgets() {
           <Profile />
         </div>
       )}
-      {openTableProfile && (
-        <div ref={ref}>
-          <TableProfile />
-        </div>
-      )}
     </div>
   );
 }
 
-export default Widgets;
+export default Issues;
