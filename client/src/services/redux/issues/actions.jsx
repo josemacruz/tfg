@@ -10,3 +10,10 @@ export const addIssue = (payload) => store.dispatch({
   type: TYPES.ADD_ISSUE_REQUEST,
   payload,
 });
+
+
+
+export const getServices = (payload) => store.dispatch({
+  type: TYPES.GET_SERVICES_REQUEST,
+  payload,
+});

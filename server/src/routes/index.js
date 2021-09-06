@@ -104,6 +104,18 @@ router.get('/api/issues', (req, res) => {
     });
 });
 
+router.get('/api/services', (req, res) => {
+  axios.defaults.headers.common['Fiware-Service'] = 'services';
+  axios.get(orionUrl + ":1026/v2/entities")
+    .then(function (response) {
+      //TODO: formatear datos aquí
+      res.json(response.data);
+    })
+    .catch(function (error) {
+      console.log('error', error);
+    });
+});
+
 router.post('/api/issues', (req, res) => {
   const id = Math.floor(Math.random() * 999999);
   console.log('dentro', id)

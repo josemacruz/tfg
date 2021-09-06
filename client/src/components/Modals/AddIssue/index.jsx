@@ -57,19 +57,17 @@ export function AddIssue({ handleClose, setOpen }) {
 					"value": description,
 			},
 			"service_code": {
-					"value": 234
+					"value": family
 			},
 			"service_name": {
-					"value": "Aceras"
-			},
-			"service_request_id": {
-					"value": 638344
+					"value": subFamily
 			},
 			"attributes": {
 					"value": {
-							"ISSUE_TYPE": ["Bordillo"],
-							"CATEGORY_TYPE": [],
-							"CRITICALITY": [],
+							"issue-type": [orderType],
+							"category-type": [category],
+							"criticality": [criticality],
+							"relationed-device": [device]
 					}
 			},
 		};
@@ -88,7 +86,6 @@ export function AddIssue({ handleClose, setOpen }) {
 		>
 		{activeStep === 0 ? (
 			<Step1
-			description={description}
 			handleOnChange={handleOnChange}
 			/>
 		) : (

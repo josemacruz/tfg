@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import * as TYPES from './types';
 import { Map, List } from 'immutable';
 

@@ -7,7 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import colors from '../../configuration/colors';
 import { Profile } from '../../components/Profile';
 import { useSelector } from 'react-redux';
-import { getIssues, addIssue } from '../../services/redux/issues/actions';
+import { getIssues, addIssue, getServices } from '../../services/redux/issues/actions';
 import { TableProfile } from '../../components/TableProfile';
 import DirectoryTable from '../../components/List';
 import Pagination from '../../components/Pagination';
@@ -39,6 +39,31 @@ export const widgetConfig =  {
   }
 };
 
+export const widgetConfigDevice =  {
+  id: 'incidencias',
+  config: {
+    appearance: {
+      hidden: [],
+    },
+    colors: {
+      headerColor: colors['ui-White'],
+      headerTableBackground: colors['ui-White'],
+      headerTableColorText: colors['ui-Black'],
+    },
+    conditions: { },
+    labels: {
+      alias: {
+        date: 'TimeInstant',
+        humidity: 'humidity',
+        id: 'id',
+        temperature: 'temperature',
+        type: 'type',
+      },
+    },
+  }
+};
+
+
 function Issues() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
@@ -46,6 +71,7 @@ function Issues() {
   const value = useSelector(state => state.get('issues').get('list').toJS());
   useEffect(() => {
     getIssues();
+    getServices();
   }, []);
   console.log(value, 'oa');
   const ref = useRef(null);

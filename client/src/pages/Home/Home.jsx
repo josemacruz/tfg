@@ -5,15 +5,17 @@ import { useSelector } from 'react-redux'
 import { getDevices } from '../../services/redux/devices/actions';
 import './styles.scss';
 import Widget from '../../components/Widget';
-import { widgetConfig } from '../ListIssues/Issues';
+import { widgetConfig, widgetConfigDevice } from '../ListIssues/Issues';
+import { getIssues } from '../../services/redux/issues/actions';
 
 function Home() {
   const devices = useSelector((state) => state.get('devices').get('list').toJS());
+  const issues = useSelector((state) => state.get('issues').get('list').toJS());
+  // const rules = useSelector((state) => state.get('rules').get('list').toJS());
   useEffect(() => {
+  getIssues();
   getDevices();
   }, []);
-
-  console.log('DEVICES', devices);
 
   return (
     <div className="dashboardContainer">
@@ -22,7 +24,7 @@ function Home() {
           title="Lista de incidencias"
           handleProfile
           hanldeAdd
-          data={devices}
+          data={issues}
           config={widgetConfig.config}
         />
       </div>
@@ -33,7 +35,7 @@ function Home() {
             handleProfile
             hanldeAdd
             data={devices}
-            config={widgetConfig.config}
+            config={widgetConfigDevice.config}
           />
         </div>
         <div className="right-widget">

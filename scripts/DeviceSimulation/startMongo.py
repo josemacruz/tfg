@@ -31,6 +31,18 @@ ambientalBase = [[10,50,75,280,120,5,5,5,25] #temperatura, humedad, ozono, dioxi
 ambientalID = ['CAmbPilas001']
 ambientalAcum = [0]
 
+class RedirectText(object):
+    def __init__(self, text_widget):
+        """Constructor"""
+        self.output = text_widget
+
+    def write(self, string):
+        """Add text to the end and scroll to the end"""
+        self.output.insert('end', string)
+        self.output.see('end')
+
+# --- functions ---
+
 def redondearSensores(num):
     a = "%.3f" % num
     red = float(a)
@@ -165,19 +177,7 @@ def addRule():
 	print('STATUS CODE: '+str(r.status_code))
 
 
-class RedirectText(object):
-    def __init__(self, text_widget):
-        """Constructor"""
-        self.output = text_widget
-
-    def write(self, string):
-        """Add text to the end and scroll to the end"""
-        self.output.insert('end', string)
-        self.output.see('end')
-
-# --- functions ---
-
-
+# Envio de datos al dispositivo
 def sendData(deviceID,query,API_Key = API_KEY):
     print(deviceID)
     print(query)
@@ -212,6 +212,9 @@ def simulate():
 			except Exception as e:
 					print('Error sending ambiental data ',e)
 
+def addIssuesServices():
+	
+
 # --- main ---
 
 root = tk.Tk()
@@ -231,14 +234,17 @@ button_top1.grid(row=1, column=2)
 button_top1 = tk.Button(root, text="Add Rule", command=addRule)
 button_top1.grid(row=1, column=3)
 
-button_top1 = tk.Button(root, text="Simulate", command=simulate)
+button_top1 = tk.Button(root, text="Add services", command=addIssuesServices)
 button_top1.grid(row=1, column=4)
 
+button_top1 = tk.Button(root, text="Simulate", command=simulate)
+button_top1.grid(row=1, column=5)
+
 exit_button = tk.Button(root, text="Exit", command=root.destroy)
-exit_button.grid(row=1, column=5)
+exit_button.grid(row=1, column=6)
 
 text = tk.Text(root)
-text.grid(row=2, column=0, columnspan=6)
+text.grid(row=2, column=0, columnspan=7)
 # keep original `stdout` and assing `RedirectText` as `stdout`
 old_stdout = sys.stdout
 sys.stdout = RedirectText(text)

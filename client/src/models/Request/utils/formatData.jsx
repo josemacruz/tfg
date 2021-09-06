@@ -1,5 +1,4 @@
 export const formatFromApi = (apiModel) => {
-	console.log(apiModel)
 	return ({
 		id: apiModel.id ?? '',
 		description: apiModel.description.value ?? '',
