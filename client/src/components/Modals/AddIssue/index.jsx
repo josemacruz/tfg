@@ -36,7 +36,7 @@ export function AddIssue({ handleClose, setOpen }) {
 			case 'criticality':
 				setCriticality(value);
 				break;
-			case 'device':
+			case 'devices':
 				setDevice(value);
 				break;
 			default:
@@ -71,7 +71,6 @@ export function AddIssue({ handleClose, setOpen }) {
 					}
 			},
 		};
-		console.log('newIssues', newIssue)
 		addIssue(newIssue);
 	}
 

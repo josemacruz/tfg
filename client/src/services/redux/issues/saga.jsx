@@ -37,11 +37,13 @@ export function* getIssuesThroughApi() {
 	}
 }
 
-export function* addIssueThroughApi() {
+export function* addIssueThroughApi(payload) {
 	try {
 		const response = yield call(
 			Api.addIssue,
+			payload.payload,
 		);
+		console.log(response);
 		if ( response.status === 200) {
 			const devices = response.data;
 			yield put({
@@ -73,7 +75,6 @@ export function* getServicesThroughApi() {
 				// console.log(formatFromApi(obj))
 				return formatFromApiServices(obj);
 			});
-			console.log('services', services)
 			yield put({
 				type: TYPES.GET_SERVICES_SUCCESS,
 				payload: services,

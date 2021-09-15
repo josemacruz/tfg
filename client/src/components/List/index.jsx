@@ -37,7 +37,6 @@ const useSortableData = (datas, config = null) => {
 };
 
 const DirectoryTable = (props) => {
-	console.log(props)
   const { datas, requestSort, sortConfig } = useSortableData(props.datas);
   const [searchValue, setSearchValue] = useState("");
   const getClassNamesFor = (name) => {

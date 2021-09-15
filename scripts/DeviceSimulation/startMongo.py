@@ -1,3 +1,4 @@
+# encoding: utf-8
 import tkinter as tk
 import sys
 import requests
@@ -50,7 +51,7 @@ def redondearSensores(num):
 
 # Crear servicio (dipositivo)
 def createService(API_Key = API_KEY):
-	print('Creación de Servicio')
+	print('Creacion de Servicio')
 	URL = 'http://'+local+':'+iotAgentPort+'/iot/services'
 	print(URL)
 	HEADERS = {
@@ -74,7 +75,7 @@ def createService(API_Key = API_KEY):
 
 # Añadir dispositivo
 def addDevice(deviceID = deviceID):
-	print('Adición de dispositivo: '+deviceID)
+	print('Adicion de dispositivo: '+deviceID)
 	URL = 'http://'+iotAgentHost+':'+iotAgentPort+'/iot/devices'
 	HEADERS = {
 		'fiware-service': 'iotAgent',
@@ -111,7 +112,7 @@ def addDevice(deviceID = deviceID):
 
 # Crear subscripcion
 def createSubscription():
-	print('Crear subscripción')
+	print('Crear subscripcion')
 	URL = 'http://'+orionHost+':'+orionPort+'/v1/subscribeContext'
 	HEADERS = {
 		'fiware-service': 'iotAgent',
@@ -148,7 +149,7 @@ def createSubscription():
 
 # Añadir regla
 def addRule():
-	print('Creación de Regla')
+	print('Creacion de Regla')
 	URL = 'http://'+perseoHost+':'+perseoPort+'/rules'
 	HEADERS = {
 		'fiware-service': 'iotAgent',
@@ -212,14 +213,10 @@ def simulate():
 			except Exception as e:
 					print('Error sending ambiental data ',e)
 
-def addIssuesServices():
-	
-
 # --- main ---
-
 root = tk.Tk()
 
-title = tk.Label(root, text="Gestión de incidencias")
+title = tk.Label(root, text="Gestion de incidencias")
 title.grid(row=0, column=2)
 
 button_top = tk.Button(root, text="Create service", command=createService)
@@ -234,8 +231,8 @@ button_top1.grid(row=1, column=2)
 button_top1 = tk.Button(root, text="Add Rule", command=addRule)
 button_top1.grid(row=1, column=3)
 
-button_top1 = tk.Button(root, text="Add services", command=addIssuesServices)
-button_top1.grid(row=1, column=4)
+# button_top1 = tk.Button(root, text="Add services", command=addIssuesServices)
+# button_top1.grid(row=1, column=4)
 
 button_top1 = tk.Button(root, text="Simulate", command=simulate)
 button_top1.grid(row=1, column=5)

@@ -63,7 +63,6 @@ export const widgetConfigDevice =  {
   }
 };
 
-
 function Issues() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
@@ -73,7 +72,7 @@ function Issues() {
     getIssues();
     getServices();
   }, []);
-  console.log(value, 'oa');
+
   const ref = useRef(null);
   const handleOpen = () => {
     setOpen(true);

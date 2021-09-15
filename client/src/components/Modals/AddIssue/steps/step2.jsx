@@ -2,6 +2,7 @@ import Select from 'react-select';
 import { TextField } from '@material-ui/core';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { getDevices } from '../../../../services/redux/devices/actions';
 
 const replaceSymbol = (text) => {
   if (text?.indexOf('_')) return text.replace(/_/g, '-');
@@ -55,46 +56,45 @@ export const getAllServices = (familyList) => {
       }
     }
 	});
-	console.log([family, subFamily, orderType, category, criticality, status])
   return [family, subFamily, orderType, category, criticality, status];
 };
 
 export function Step2(props) {
 	const {
-		family,
-		subFamily,
-		orderType,
-		category,
-		criticality,
-		device,
 		description,
 		handleOnChange,
 	} = props;
 	const [filtersValues, setFiltersValues] = useState({});
-	const services = useSelector((state) => state.get('issues').get('listServices'));
-	const getOptions = (entities) => (entities?.length ? entities
-    .map((o) => ({ value: o.name, label: o.value })) : []);
-		useEffect(() => {
-			const [
-				family,
-				subFamily,
-				orderType,
-				categories,
-				criticality,
-				status,
-			] = getAllServices(services);
+	const devices = useSelector((state) => state.get('devices').get('list').toJS());
+ 	const services = useSelector((state) => state.get('issues').get('listServices'));
 	
-			setFiltersValues({
-				family,
-				subFamily,
-				orderType,
-				categories,
-				criticality,
-				status,
-			});
-		}, [services]);
+	const getOptions = (entities) => (entities?.length ? entities
+  	.map((o) => ({ value: o.name, label: o.value })) : []);
+
+	const getDevice = (devices) => (devices?.length ? devices
+		.map((o) => ({ value: o.id, label: o.id })) : []);
+
+	useEffect(() => {
+		const [
+			family,
+			subFamily,
+			orderType,
+			categories,
+			criticality,
+			status,
+		] = getAllServices(services);
+
+		setFiltersValues({
+			family,
+			subFamily,
+			orderType,
+			categories,
+			criticality,
+			status,
+		});
+	}, [services]);
+
   const getFilter = (filter) => {
-		console.log(filter, filtersValues)
     const filters = {
       category: getOptions(filtersValues.categories),
       criticality: getOptions(filtersValues.criticality),
@@ -102,10 +102,14 @@ export function Step2(props) {
       subFamily: getOptions(filtersValues.subFamily),
       orderType: getOptions(filtersValues.orderType),
       status: getOptions(filtersValues.status),
+			devices: getDevice(devices),
     };
-		console.log(filters[filter])
     return filter ? filters[filter] : [];
   };
+
+	useEffect(() => {
+		getDevices();
+	}, [])
 
 	const selects = [
 		'family',
@@ -113,8 +117,9 @@ export function Step2(props) {
 		'orderType',
 		'category',
 		'criticality',
-		'device',
+		'devices',
 	];
+
 	return (
 		<div className="stepContainer">
 			<h1 className="title">Información general de la incidencia</h1>
