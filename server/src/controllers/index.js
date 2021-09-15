@@ -67,10 +67,10 @@ const readDevices = async (req, res) => {
 
 /** RULES CONTROLLERS */
 const readRules = async (req, res) => {
-  axios.defaults.headers.common['Fiware-Service'] = 'openiot';
   axios.get(perseoUrl + ":9090/rules")
     .then(function (response) {
       const rules = response.data;
+      console.log(rules)
       res.status(200).json(rules);
     })
     .catch(function (error) {

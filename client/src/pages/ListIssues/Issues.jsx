@@ -40,7 +40,7 @@ export const widgetConfig =  {
 };
 
 export const widgetConfigDevice =  {
-  id: 'incidencias',
+  id: 'devices',
   config: {
     appearance: {
       hidden: [],
@@ -54,14 +54,35 @@ export const widgetConfigDevice =  {
     labels: {
       alias: {
         date: 'TimeInstant',
-        humidity: 'humidity',
         id: 'id',
-        temperature: 'temperature',
         type: 'type',
+        temperature: 'temperature',
+        humidity: 'humidity',
       },
     },
   }
 };
+
+export const widgetConfigRules = {
+  id: 'rules',
+  config: {
+    appearance: {
+      hidden: [],
+    },
+    colors: {
+      headerColor: colors['ui-White'],
+      headerTableBackground: colors['ui-White'],
+      headerTableColorText: colors['ui-Black'],
+    },
+    conditions: { },
+    labels: {
+      alias: {
+        name: 'name',
+        action: 'action',
+      },
+    },
+  }
+}
 
 function Issues() {
   const [open, setOpen] = useState(false);

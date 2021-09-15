@@ -54,6 +54,30 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
           metadata: { },
         };
         break;
+      case 'id': 
+        attributes[alias] = {
+          value: object[alias],
+          metadata: { },
+        };
+        break;
+      case 'type':
+        attributes[alias] = {
+          value: object[alias],
+          metadata: { },
+        };
+        break;
+      case 'temperature':
+        attributes[alias] = {
+          value: object[alias],
+          metadata: { },
+        };
+        break;
+      case 'humidity':
+        attributes[alias] = {
+          value: object[alias],
+          metadata: { },
+        };
+        break;
       default:
         break;
     }

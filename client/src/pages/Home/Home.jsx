@@ -1,20 +1,21 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-dupe-keys */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getDevices } from '../../services/redux/devices/actions';
-import './styles.scss';
 import Widget from '../../components/Widget';
-import { widgetConfig, widgetConfigDevice } from '../ListIssues/Issues';
+import { widgetConfig, widgetConfigDevice , widgetConfigRules } from '../ListIssues/Issues';
 import { getIssues } from '../../services/redux/issues/actions';
+import { getRules } from '../../services/redux/rules/actions';
+import './styles.scss';
 
 function Home() {
   const devices = useSelector((state) => state.get('devices').get('list').toJS());
   const issues = useSelector((state) => state.get('issues').get('list').toJS());
-  // const rules = useSelector((state) => state.get('rules').get('list').toJS());
-  useEffect(() => {
+  const rules = useSelector((state) => state.get('rules').get('list').toJS());
+
+ useEffect(() => {
   getIssues();
   getDevices();
+  getRules();
   }, []);
 
   return (
@@ -43,8 +44,8 @@ function Home() {
             title="Listado de reglas"
             handleProfile
             hanldeAdd
-            data={devices}
-            config={widgetConfig.config}
+            data={rules}
+            config={widgetConfigRules.config}
           />
         </div>
       </div>
