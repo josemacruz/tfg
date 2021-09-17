@@ -8,7 +8,6 @@ export const readIssues = async () => {
       })
         .then(async (response) => {
           response = await response.json();
-          console.log('response', response)
           resolve({status: 200, data: response });
         })
         .catch((error) => {
@@ -22,7 +21,6 @@ export const readIssues = async () => {
 export const addIssue = (payload) => {
   axios.post('http://172.20.0.5:8080/api/issues', payload)
     .then(res => {
-      console.log('asdsa', res)
     })
 }
 
@@ -33,7 +31,6 @@ const answer = new Promise ((resolve, reject) => {
   })
     .then(async (response) => {
       response = await response.json();
-      console.log('response', response)
       resolve({status: 200, data: response });
     })
     .catch((error) => {

@@ -18,8 +18,6 @@ const Card = styled.div`
 function Widget(props) {
   const {
 		title,
-		handleAdd,
-		addButton,
 		handleProfile,
 		data,
 		config,
@@ -35,12 +33,6 @@ function Widget(props) {
 				<div className="title">
 					<span className="text">{title}</span>
 					<div className="buttonContainer" >
-						{handleAdd && (<button
-							className="button"
-							onClick={handleAdd}
-							>
-						{addButton}
-						</button>)}
 						{handleProfile && (
 							<BsThreeDotsVertical
 								onClick={handleProfile}

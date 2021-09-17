@@ -1,5 +1,5 @@
-import { Modal } from '@material-ui/core';
-import React, { useEffect, useRef, useState } from 'react';
+import { isMuiElement, Modal } from '@material-ui/core';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import './styles.scss';
 import { AddIssue } from '../../components/Modals/AddIssue';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -7,8 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import colors from '../../configuration/colors';
 import { Profile } from '../../components/Profile';
 import { useSelector } from 'react-redux';
-import { getIssues, addIssue, getServices } from '../../services/redux/issues/actions';
-import { TableProfile } from '../../components/TableProfile';
+import { getIssues, getServices } from '../../services/redux/issues/actions';
 import DirectoryTable from '../../components/List';
 import Pagination from '../../components/Pagination';
 
@@ -46,8 +45,8 @@ export const widgetConfigDevice =  {
       hidden: [],
     },
     colors: {
-      headerColor: colors['ui-White'],
-      headerTableBackground: colors['ui-White'],
+      headerColor: colors['severity-critical'],
+      headerTableBackground: colors['severity-critical'],
       headerTableColorText: colors['ui-Black'],
     },
     conditions: { },
@@ -84,11 +83,34 @@ export const widgetConfigRules = {
   }
 }
 
+const getFormattedIssues = (issues, services) => {
+  console.log(issues, services)
+  const formattedIssues = [];
+  issues.forEach((issue) => {
+    const family = services.find((o) => o.name === issue.serviceCode);
+    const subFamily = services.find((o) => o.name === issue.serviceName);
+    const newIssue = {
+      ...issue,
+      family,
+      subFamily,
+    };
+    formattedIssues.push(newIssue);
+  });
+  return formattedIssues;
+}
+
 function Issues() {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const value = useSelector(state => state.get('issues').get('list').toJS());
+  const issues = useSelector(state => state.get('issues').get('list').toJS());
+  const services = useSelector(state => state.get('issues').get('listServices').toJS());
+
+  const formattedIssues = useMemo(() => getFormattedIssues(
+    issues,
+    services,
+  ), [issues.length, services.length]);
+  console.log('asdsad', formattedIssues)
   useEffect(() => {
     getIssues();
     getServices();
@@ -130,7 +152,7 @@ function Issues() {
   return (
       <div className="dashboardContainer">
        <DirectoryTable
-        datas={value}
+        datas={formattedIssues}
         handleAdd={handleOpen}
        />
        <Pagination

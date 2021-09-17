@@ -43,7 +43,6 @@ export function* addIssueThroughApi(payload) {
 			Api.addIssue,
 			payload.payload,
 		);
-		console.log(response);
 		if ( response.status === 200) {
 			const devices = response.data;
 			yield put({
@@ -72,7 +71,6 @@ export function* getServicesThroughApi() {
 		);
 		if ( response.status === 200) {
 			const services = response.data.map((obj) => {
-				// console.log(formatFromApi(obj))
 				return formatFromApiServices(obj);
 			});
 			yield put({

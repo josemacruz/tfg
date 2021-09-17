@@ -18,7 +18,6 @@ const readIssues = async (req, res) => {
 
 const addIssue = async (req, res) => {
 	const body = req.body;
-  console.log(body)
   axios({
     method: 'post',
     url: orionUrl + ":1026/v2/entities",
@@ -70,7 +69,6 @@ const readRules = async (req, res) => {
   axios.get(perseoUrl + ":9090/rules")
     .then(function (response) {
       const rules = response.data;
-      console.log(rules)
       res.status(200).json(rules);
     })
     .catch(function (error) {

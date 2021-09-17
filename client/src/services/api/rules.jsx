@@ -6,6 +6,5 @@ export const readRules = async (payload) => {
       return res;
     })
 		.catch(err => err);
-	console.log(answer)
 	return answer;
 }
