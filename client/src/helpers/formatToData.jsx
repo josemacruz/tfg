@@ -6,7 +6,7 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
   if (exclude.length) {
     currentAlias = currentAlias.filter((o) => !exclude.includes(o));
   }
-
+  console.log(object)
   currentAlias.forEach((alias) => {
     switch (alias) {
       case 'family':
@@ -68,11 +68,12 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
         break;
       case 'temperature':
         attributes[alias] = {
-          value: object[alias],
+          value: object[alias].value,
           metadata: { },
         };
         break;
       case 'humidity':
+        console.log(object, object[alias])
         attributes[alias] = {
           value: object[alias],
           metadata: { },

@@ -1,0 +1,36 @@
+.stepContainer {
+	width: 45rem;
+	padding: 5rem;
+	display: flex;
+	height: 100%;
+	background: white;
+	flex-direction: column;
+	justify-content: flex-start;
+
+	.title {
+		align-self: center;
+	}
+
+	.selectContainer {
+		display: flex;
+		flex-direction: column;
+
+		.selector	{
+			margin-top: 15px;
+		}
+	}
+
+	.alertContainer {
+		margin: 1.2rem;
+	}
+
+	.closeIcon { 
+		padding: 0;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    top: -67px;
+    right: -66px;
+	}
+}

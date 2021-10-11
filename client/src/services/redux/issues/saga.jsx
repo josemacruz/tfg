@@ -37,6 +37,34 @@ export function* getIssuesThroughApi() {
 	}
 }
 
+export function* getIssueThroughApi(payload) {
+	try {
+		const response = yield call(
+			Api.readIssue,
+			payload.payload,
+		);
+		if ( response.status === 200) {
+			const issue = response.data.map((obj) => {
+				return formatFromApi(obj);
+			});
+			yield put({
+				type: TYPES.GET_ISSUE_SUCCESS,
+				payload: issue,
+			})
+		} else {
+			yield put({
+				type: TYPES.GET_ISSUE_ERROR,
+				payload: response,
+			});
+		}
+	} catch (error) {
+		yield put({
+			type: TYPES.GET_ISSUE_ERROR,
+			payload: error,
+		});
+	}
+}
+
 export function* addIssueThroughApi(payload) {
 	try {
 		const response = yield call(
@@ -59,6 +87,33 @@ export function* addIssueThroughApi(payload) {
 		yield put({
 
 			type: TYPES.ADD_ISSUE_ERROR,
+			payload: error,
+		});
+	}
+}
+
+export function* updateIssueThroughApi(payload) {
+	try {
+		const response = yield call(
+			Api.updateIssue,
+			payload.payload,
+		);
+		if ( response.status === 200) {
+			const issue = response.data;
+			yield put({
+				type: TYPES.UPDATE_ISSUE_SUCCESS,
+				payload: issue,
+			})
+		} else {
+			yield put({
+				type: TYPES.UPDATE_ISSUE_ERROR,
+				payload: response,
+			});
+		}
+	} catch (error) {
+		yield put({
+
+			type: TYPES.UPDATE_ISSUE_ERROR,
 			payload: error,
 		});
 	}
@@ -96,6 +151,14 @@ function* watcherGetIssues() {
   yield takeEvery('GET_ISSUES_REQUEST', getIssuesThroughApi);
 }
 
+function* watcherGetIssue() {
+  yield takeEvery('GET_ISSUE_REQUEST', getIssueThroughApi);
+}
+
+function* watcherUpdateIssue() {
+  yield takeEvery('UPDATE_ISSUE_REQUEST', updateIssueThroughApi);
+}
+
 function* watcherAddIssue() {
   yield takeEvery('ADD_ISSUE_REQUEST', addIssueThroughApi);
 }
@@ -108,6 +171,8 @@ function* watcherGetServices() {
 export default function* rootSaga() {
   yield all([
     fork(watcherGetIssues),
+		fork(watcherGetIssue),
+		fork(watcherUpdateIssue),
 		fork(watcherAddIssue),
 		fork(watcherGetServices),
   ]);

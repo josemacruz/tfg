@@ -1,0 +1,74 @@
+.profileContainer {
+	background-color: #ffff;
+	height: 100%;
+	width: 500px;
+	position: absolute;
+	right: 0px;
+	top: 0;
+	z-index: 101;
+	display: flex;
+	padding-top: 65px;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+
+	.profileHeader {
+		height: 10%;
+		background-color: var(--first-color);
+		color: white;
+		display: flex;
+    align-items: center;
+    justify-content: center;
+	}
+
+	.profileContents {
+		height: 100%;
+
+		.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+			color: var(--first-color);
+		}
+
+		.css-1aquho2-MuiTabs-indicator {
+			background-color: var(--first-color);
+		}
+
+		.stepContainer {
+			width: 31rem;
+		}
+	}
+
+	.button {
+		font-family: var(--body-font);
+		font-size: 0.8rem;
+		font-weight: 600;
+		letter-spacing: -0.1;
+		line-height: 1rem;
+		text-align: center;
+		width: 8rem;
+		height: 2rem;
+		border-width: 0;
+		border-style: none;
+		border-image: none;
+		border-radius: 0.4rem;
+		border-color: transparent;
+		outline-style: none;
+		align-items: center;
+		background-color: #58555e;
+		color: #ffffff;
+
+		&:hover {
+			background-color: var(--first-color);
+			box-shadow: 0 0.1rem 1.25rem 0 var(--first-color);;
+			color: #ffffff;
+		}
+	}
+
+	.profileFooter {
+		height: 10%;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	}
+
+}

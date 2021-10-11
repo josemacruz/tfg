@@ -1,17 +1,17 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import Home from './pages/Home/Home';
+import { Dashboard } from './pages/Dashboard';
+import List from './pages/Issues/List/index';
+import Header from './components/Header/index';
 import './App.scss';
-import Header from './components/Header/Header';
-import Issues from './pages/ListIssues/Issues';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Router>
-        <Home path="/" />
-        <Issues path="/issues" />
+        <Dashboard path="/" />
+        <List path="/issues" />
       </Router>
     </div>
   );

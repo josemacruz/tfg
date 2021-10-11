@@ -15,6 +15,7 @@ export function* getDevicesThroughApi() {
 		);
 		if ( response.status === 200) {
 			const devices = response.data;
+			console.log('devices', devices)
 			yield put({
 				type: TYPES.GET_DEVICES_SUCCESS,
 				payload: devices,

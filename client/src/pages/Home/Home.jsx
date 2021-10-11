@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { getDevices } from '../../services/redux/devices/actions';
 import Widget from '../../components/Widget';
-import { widgetConfig, widgetConfigDevice , widgetConfigRules } from '../ListIssues/Issues';
+// import { widgetConfig, widgetConfigDevice , widgetConfigRules } from '../ListIssues/Issues';
 import { getIssues } from '../../services/redux/issues/actions';
 import { getRules } from '../../services/redux/rules/actions';
 import './styles.scss';
@@ -42,7 +42,7 @@ function Home() {
           title="Lista de incidencias"
           handleProfile={handleOpenProfile}
           data={issues}
-          config={widgetConfig.config}
+          // config={widgetConfig.config}
         />
       </div>
       <div className="row2">
@@ -51,7 +51,7 @@ function Home() {
             title="Dispotivos conectados"
             handleProfile={handleOpenProfile}
             data={devices}
-            config={widgetConfigDevice.config}
+            // config={widgetConfigDevice.config}
           />
         </div>
         <div className="right-widget">
@@ -59,7 +59,7 @@ function Home() {
             title="Listado de reglas"
             handleProfile={handleOpenProfile}
             data={rules}
-            config={widgetConfigRules.config}
+            // config={widgetConfigRules.config}
           />
         </div>
       </div>
