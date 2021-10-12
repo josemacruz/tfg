@@ -3,6 +3,25 @@
     justify-content: center;
     flex-direction: column;
 
+    .MuiTableCell-head {
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 500;
+      line-height: 1.5rem;
+      background-color: #eaeaea !important;
+    }
+    
+    .MuiTypography-h6 {
+      font-size: 1.25rem;
+      font-family: var(--body-font);
+      font-weight: 600;
+      line-height: 1.6;
+      letter-spacing: 0.0075em;
+      color: var(--first-color);
+    }
+    .MuiIconButton-colorPrimary {
+      color: var(--first-color);
+  }
+
     .listHeader {
       display: flex;
       justify-content: space-between;

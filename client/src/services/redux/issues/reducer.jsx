@@ -40,6 +40,7 @@ export default (state = initialState, { type, payload }) => {
 
     case TYPES.GET_ISSUE_SUCCESS: {
       const issue = payload;
+      console.log(issue.id);
       aux = state.set('currentIssue', List([ { ...issue } ]));
       return aux;
     }

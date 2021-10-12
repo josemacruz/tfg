@@ -3,5 +3,13 @@
 	"header.title": "Sistema de alertas automáticas basado en FIWARE",
 	"nav.title": "Menú",
 	"nav.subtitle.dashboard": "Dashboard",
-	"nav.subtitle.issues": "Incidencias"
+	"nav.subtitle.issues": "Incidencias",
+	"widgetIssues.wizard.filters.date": "date",
+	"issue.list.family": "Familia",
+	"issue.list.description": "Descripción",
+	"issue.list.criticality": "Criticidad",
+	"issue.list.status": "Estado",
+	"issue.list.date": "Fecha",
+	"issue.list.category": "Categoría",
+	"issue.list.action": "Acciones"
 }

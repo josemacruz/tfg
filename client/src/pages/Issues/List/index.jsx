@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Table from '../../../components/BasicList';
 import { Profile } from '../Profile/index';
@@ -10,13 +11,12 @@ import { useSelector } from 'react-redux';
 import { getFormattedIssues } from '../helpers';
 import Add from '../Add';
 
-function List() {
+function List({ intl }) {
   const [openModal, setOpenModal] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [currentRow, setCurrentRow] = useState();
   const issues = useSelector((state) => state.get('issues').get('list').toJS());
   const services = useSelector((state) => state.get('issues').get('listServices').toJS());
-  const ref = useRef(null);
 
   const formattedIssues = useMemo(() => getFormattedIssues(
     issues,
@@ -25,32 +25,40 @@ function List() {
 
   const data = formattedIssues.map((issue) => ({
     id: issue.id,
-    family: issue.family.name,
+    family: intl.formatMessage({ id: `issue.list.${issue.family.name}` }),
     description: issue.description,
-    criticality: issue.criticality,
-    status: issue.status,
+    criticality: intl.formatMessage({ id: `issue.list.${issue.criticality}` }),
+    status: intl.formatMessage({ id: `issue.list.${issue.status}` }),
     dateCreated: issue.dateCreated.value,
-    category: issue.category,
+    category: intl.formatMessage({ id: `issue.list.${issue.category}` }),
   }));
 
   const columns = [
-    { title: 'Familia', field: 'family' },
-    { title: 'Descripción', field: 'description' },
-    { title: 'Criticidad', field: 'criticality' },
-    { title: 'Estado', field: 'status' },
-    { title: 'Fecha', field: 'dateCreated' },
-    { title: 'Categoría', field: 'category' },
+    { title: intl.formatMessage({ id: 'issue.list.family' }), field: 'family' },
+    { title: intl.formatMessage({ id: 'issue.list.description' }), field: 'description' },
+    { title: intl.formatMessage({ id: 'issue.list.criticality' }), field: 'criticality' },
+    { title: intl.formatMessage({ id: 'issue.list.status' }), field: 'status' },
+    { title: intl.formatMessage({ id: 'issue.list.date' }), field: 'dateCreated', type: 'date' },
+    { title: intl.formatMessage({ id: 'issue.list.category' }), field: 'category' },
     {
-      title: 'Acciones',
+      title: intl.formatMessage({ id: 'issue.list.action' }),
       field: 'internal_action',
       editable: false,
       render: (rowData) => (rowData && (
-        <IconButton
-          color="primary"
-          onClick={() => handleOpenProfile(rowData)}
-        >
-          <Edit />
-        </IconButton>
+        <>
+          <IconButton
+            color="primary"
+            onClick={() => handleOpenProfile(rowData)}
+          >
+            <Edit />
+          </IconButton>
+          <IconButton
+            color="primary"
+            onClick={() => null}
+          >
+            <Delete />
+          </IconButton>
+        </>
       )),
     },
   ];
@@ -98,4 +106,4 @@ function List() {
   );
 }
 
-export default List;
+export default injectIntl(List);

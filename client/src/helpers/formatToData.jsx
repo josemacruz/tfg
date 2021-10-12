@@ -1,3 +1,4 @@
+import Moment from "moment";
 import colors from "../configuration/colors";
 
 const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
@@ -89,7 +90,9 @@ export const formatToData  = (configuration, data) => {
 	const rows = [];
 	const { alias = [] } = configuration.labels;
   const { hidden = [] } = configuration.appearance;
-	
+  const { conditions = [] } = configuration;
+	let filtersData = [];
+
 	const types = {
 		date: 'date',
     category: 'string',
@@ -119,11 +122,97 @@ export const formatToData  = (configuration, data) => {
 
   if (data) {
     data.forEach((dt) => {
-      rows.push({
-        id: dt.id,
-        ...getAllAttributes(dt, alias),
-      });
+      let firstCondition = true;
+      if (conditions.length) {
+        conditions.forEach((obj) => {
+          if (Object.keys(dt[obj.filter]).length) {
+            switch (obj.filter) {
+              case 'dateCreated':
+                obj.contents.forEach((cnt) => {
+                  if (firstCondition) {
+                    if (cnt.startDate && cnt.endDate) {
+                      const isBetween = Moment(dt.dateCreated)
+                        .isBetween(cnt.startDate, cnt.endDate);
+                      if (isBetween) {
+                        if (firstCondition) firstCondition = false;
+                        filtersData.push(dt);
+                      }
+                    }
+                  } else {
+                    filtersData = filtersData.filter((d) => {
+                      if (cnt.startDate && cnt.endDate) {
+                        const isBetween = Moment(d.dateCreated)
+                          .isBetween(cnt.startDate, cnt.endDate);
+                        if (isBetween) {
+                          return d;
+                        }
+                      }
+                    });
+                  }
+                });
+                break;
+              case 'family':
+                if (firstCondition) {
+                  if (obj.contents.includes(dt[obj.filter].name)) {
+                    if (firstCondition) firstCondition = false;
+                    filtersData.push(dt);
+                  }
+                } else {
+                  filtersData = filtersData.filter((d) => {
+                    if (obj.contents.includes(d[obj.filter].name)) {
+                      return d;
+                    }
+                  });
+                }
+                break;
+              case 'subFamily':
+                if (firstCondition) {
+                  dt[obj.filter].forEach((d) => {
+                    if (obj.contents.includes(d.serviceName)) {
+                      if (firstCondition) firstCondition = false;
+                      filtersData.push(dt);
+                    }
+                  });
+                } else {
+                  filtersData = filtersData.filter((d) => {
+                    if (obj.contents.includes(d.serviceName)) {
+                      return d;
+                    }
+                  });
+                }
+                break;
+              default:
+                if (firstCondition) {
+                  if (obj.contents.includes(dt[obj.filter].toLowerCase())) {
+                    filtersData.push(dt);
+                  }
+                  if (firstCondition) firstCondition = false;
+                } else {
+                  filtersData = filtersData.filter((d) => {
+                    if (obj.contents.includes(d[obj.filter].toLowerCase())) {
+                      return d;
+                    }
+                  });
+                }
+                break;
+            }
+          }
+        });
+      } else {
+        rows.push({
+          id: dt.id,
+          ...getAllAttributes(dt, alias),
+        });
+      }
     });
+    if (filtersData.length) {
+      filtersData.forEach((dt) => {
+        rows.push({
+          id: dt.id,
+          ...getAllAttributes(dt, alias),
+        });
+      });
+    }
   }
   return [rows, columns];
 }

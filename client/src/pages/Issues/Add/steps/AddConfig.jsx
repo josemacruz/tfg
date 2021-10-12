@@ -182,9 +182,9 @@ export function AddConfig(props) {
           onChange={(event) => handleOnChange(event.target.id, event.target.value)}
         />
       </div>
-      <button onClick={validate}>Crear issue</button>
+      <button onClick={validate} className="addButton">Crear issue</button>
       {error && (<div className="alertContainer">
-        <Alert severity="error">This is an error alert — check it out!</Alert>
+        <Alert severity="error">Error, seleccione todos los campos</Alert>
       </div>)}
   </div>
   );

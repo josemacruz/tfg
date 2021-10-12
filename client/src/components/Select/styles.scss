@@ -1,0 +1,32 @@
+.Select {
+  width: fit-content;
+  margin: auto;
+  position: relative;
+}
+
+.Select:focus {
+  outline-color: var(--first-color);
+}
+
+.Select .selection {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  padding: 2px 8px 1px;
+  border: 1px solid var(--first-color);
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  background-color: var(--container-color);
+  transition: border-color 0.25s ease-in-out;
+}
+
+.Select .selection.open,
+.Select .selection:hover,
+.Select .selection:focus,
+.Select .selection:active {
+  border-color: var(--first-color);;
+}
+

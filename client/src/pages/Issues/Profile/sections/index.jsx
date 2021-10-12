@@ -6,12 +6,14 @@ import { getServices } from '../../../../services/redux/issues/actions';
 import Alert from '@mui/material/Alert';
 import './styles.scss';
 import { getAllServices } from '../../Add/steps/AddConfig';
+import { injectIntl } from 'react-intl';
 
-export function ProfileIssue(props) {
+function ProfileIssue(props) {
   const {
     handleOnChange,
     error,
     values,
+    intl,
   } = props;
 
   const [filtersValues, setFiltersValues] = useState({});
@@ -28,7 +30,7 @@ export function ProfileIssue(props) {
   ];
 
   const getOptions = (entities) => (entities?.length ? entities
-    .map((o) => ({ value: o.name, label: o.value })) : []);
+    .map((o) => ({ value: o.name, label: intl.formatMessage({ id: `issue.list.${o.value}` }) })) : []);
 
   const getDevice = (device) => (device?.length ? device
     .map((o) => ({ value: o.id, label: o.id })) : []);
@@ -83,7 +85,7 @@ export function ProfileIssue(props) {
             className="selector"
             value={Object.entries(values).map(([key, value]) => {
               if ( key === d) {
-                return { "label": `${value}` , "value": `${value}`};
+                return { "label": key !== 'devices' ? intl.formatMessage({ id: `issue.list.${value}` }) : value , "value": `${value}`};
               }
             })}
             placeholder={d}
@@ -100,3 +102,5 @@ export function ProfileIssue(props) {
   </div>
   );
 }
+
+export default injectIntl(ProfileIssue);

@@ -1,0 +1,81 @@
+@import "../../configuration/sass/variables.scss";
+
+
+.filterBy {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 10px 0px 20px;
+}
+
+.radioButton {
+    padding-right: 7em;
+    padding-left: 0px !important;
+    input, label::before, label::after, label{
+        width: 1.2em;
+        height: 1.2em;
+    }
+    label{
+        &::after{
+            background-image: none !important;
+            border-radius: 50%;
+            background-color: $ui-White;
+            width: 50%;
+            height: 50%;
+        }
+        &::after, &::before{
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    .name{
+        margin-left: 1.9em;
+        font-size: 0.98em;
+    }
+}
+
+.footer-profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    color: $ui-main-color;
+
+    p {
+        align-self: center;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .btn{
+        min-width: 0;
+        min-height: 0;
+        padding: 0.5rem;
+        border-radius: 50%;
+        border-color: $ui-main-color;
+
+        i {
+            color: $ui-main-color;
+        }
+
+        &:hover{
+            background-color: $ui-main-color;
+
+            i {
+                color: $ui-White;
+            }
+        }
+    }
+
+    .totalDevices{
+        align-self: center;
+        background-color: $widget-quinary-5;
+        border-radius: 50% !important;
+        padding: 0.1rem 0.9rem;
+        font-size: 0.8rem;
+    }
+
+    .addDeviceText{
+        height: 50%;
+    }
+}
