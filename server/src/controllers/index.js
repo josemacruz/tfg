@@ -16,6 +16,19 @@ const readIssues = async (req, res) => {
     });
 }
 
+const readIssue = async (req, res) => {
+	axios.defaults.headers.common['Fiware-Service'] = 'issues';
+  const id = req.params.id;
+  axios.get(orionUrl + ":1026/v2/entities/" + id)
+    .then(function (response) {
+			const issue = response.data;
+      res.status(200).json(issue);
+    })
+    .catch(function (error) {
+      res.status(404).json({ message: error.message });
+    });
+}
+
 const addIssue = async (req, res) => {
 	const body = req.body;
   axios({
@@ -29,12 +42,34 @@ const addIssue = async (req, res) => {
     data: body,
   })
   .then(function (response) {
-    const newIssue = response.data;
-    res.status(200).json(newIssue);
+    res.status(200).json({ ...body });
   })
   .catch(function (error) {
     res.status(404).json({ message: error.message });
   });
+}
+
+const updateIssue = async (req, res) => {
+  const body = req.body;
+  const id = req.params.id;
+  axios({
+    method: 'put',
+    url: orionUrl + ":1026/v2/entities/" + id + "/attrs",
+    headers: {
+      'Fiware-Service': 'issues',
+      'Fiware-ServicePath': '/',
+      'Content-Type': 'application/json',
+    },
+    data: body,
+  })
+  .then(function (response) {
+    const updateIssue = response.data;
+    res.status(200).json(updateIssue);
+  })
+  .catch(function (error) {
+    res.status(404).json({ message: error.message });
+  });
+
 }
 
 /** SERVICES CONTROLLERS */
@@ -147,4 +182,6 @@ module.exports = {
   readDevices: readDevices,
   readRules: readRules,
   addIssueByRule: addIssueByRule,
+  updateIssue: updateIssue,
+  readIssue: readIssue,
 }
