@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ProfileIssue } from './sections';
 import { Tabs, Tab } from '@mui/material';
-import './styles.scss';
 import { TabPanel } from '../../../components/Tabs';
 import { useSelector } from 'react-redux';
-import { get } from 'immutable';
-import { getIssue } from '../../../services/redux/issues/actions';
+import { getIssue, getServices, updateIssue } from '../../../services/redux/issues/actions';
+import { getFormattedIssues } from '../helpers';
+import { Textarea } from '@nextui-org/react';
+import './styles.scss';
 
 export function Profile({ setOpenProfile, currentRow, close }) {
   const [description, setDescription] = useState();
@@ -15,15 +16,23 @@ export function Profile({ setOpenProfile, currentRow, close }) {
   const [category, setCategory] = useState('');
   const [criticality, setCriticality] = useState('');
   const [device, setDevice] = useState('');
+  const [status, setStatus] = useState('');
+  const [dateCreated,setDateCreated] = useState('');
   const [error, setError] = useState(false);
-  const [value, setValue] = useState(0);
+  const [issueFormatted,setIssueFormatted]= useState('');
+  const [value] = useState(0);
+  const [values, setValues] = useState({});
   const ref = useRef(null);
-  console.log(currentRow);
 
-  const issue = useSelector((state) => get('issues').get('currentIssue'));
+  const issue = useSelector((state) => state.get('issues').get('currentIssue').toJS());
+  const services = useSelector((state) => state.get('issues').get('listServices').toJS());
+
+  const formattedIssues = useMemo(() => getFormattedIssues(
+    issue,
+    services,
+  ), [issue.length, services.length]);
 
   const handleOnChange = (name, value) => {
-    console.log(name, value)
     switch (name) {
       case 'description':
         setDescription(value);
@@ -46,6 +55,9 @@ export function Profile({ setOpenProfile, currentRow, close }) {
       case 'devices':
         setDevice(value);
         break;
+      case 'status':
+        setStatus(status);
+        break;
       default:
         break;
     }
@@ -55,14 +67,9 @@ export function Profile({ setOpenProfile, currentRow, close }) {
 		setError(false);
 		if (family !== '' && subFamily !== '' && orderType !== '' &&
 			category !== '' && criticality !== '' && device !== '') {
-				const id = Math.floor(Math.random() * 999999);
-				const dateCreated = new Date();
 				const newIssue = {
-					"id": `service-request:${id}`,
-					"type": "Open311ServiceRequest",
 					"status": {
-						"type": "Property",
-						"value": "open"
+						"value": status,
 					},
 					"description": {
 							"value": description,
@@ -81,12 +88,8 @@ export function Profile({ setOpenProfile, currentRow, close }) {
 									"relationed-device": [device]
 							}
 					},
-					"dateCreated": {
-						"value": dateCreated,
-					},
 				};
-        //updateIssue 
-        //https://fiware-orion.readthedocs.io/en/1.4.0/user/walkthrough_apiv2/index.html#update-entity
+        updateIssue({ id: issueFormatted.id, body: newIssue });
 			} else {
 				setError(true);
 			}
@@ -110,32 +113,76 @@ export function Profile({ setOpenProfile, currentRow, close }) {
     };
   });
 
+
+  useEffect(() => {
+    if (formattedIssues.length > 0) {
+      const issueFormatted = formattedIssues[0];
+      setDescription(issueFormatted.description);
+      setFamily(issueFormatted.family.name);
+      setSubFamily(issueFormatted.subFamily.name);
+      setOrderType(issueFormatted.orderType);
+      setCategory(issueFormatted.category);
+      setCriticality(issueFormatted.criticality);
+      setDevice(issueFormatted.devices[0]);
+      setDateCreated(issueFormatted.dateCreated.value);
+      setIssueFormatted(issueFormatted);
+      setStatus(issueFormatted.status);
+      setValues({
+        family: issueFormatted.family.name,
+        subFamily: issueFormatted.subFamily.name,
+        orderType: issueFormatted.orderType,
+        category: issueFormatted.category,
+        criticality: issueFormatted.criticality,
+        devices: issueFormatted.devices,
+        status: issueFormatted.status,
+      })
+    }
+  }, [formattedIssues.length]);
+
+  useEffect(() => {
+    setValues({
+      family, subFamily, orderType, category, criticality, devices: device, status,
+    });
+  }, [family, subFamily, orderType, category, criticality, device, status]);
   useEffect(() => {
     if (currentRow) {
       getIssue({ id: currentRow });
     }
   }, [getIssue, currentRow]);
 
+  useEffect(() => {
+    getServices();
+  }, [getServices]);
+
   return (
     <div className="profileContainer" ref={ref}>
       <div className="profileHeader">
         <h2>Incidencia</h2>
-        <span className="issueDate">Creado: {currentRow}</span>
+        <span className="issueDate">Creado: {dateCreated}</span>
       </div>
       <div className="descriptionSection">
         <h3>Descripción</h3>
-        <p id="decription" name="description" contentEditable className="editable" onChange={(event) => handleOnChange(event.target.value)}/>
+        <Textarea
+          className="descriptionArea"
+          value={description}
+          onChange={(event) => handleOnChange('description', event.target.value)}
+        />
       </div>
       <div className="profileContents">
         <Tabs value={value} aria-label="basic tabs example">
           <Tab label="Información" {...a11yProps(0)}  />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <ProfileIssue/>
+          <ProfileIssue
+            values={values}
+            handleOnChange={handleOnChange}
+            validate={validate}
+            error={error}
+          />
         </TabPanel>
       </div>
       <div className="profileFooter">
-        <button type="button" className="button">Aplicar Cambios</button>
+        <button type="button" className="button" onClick={validate}>Aplicar Cambios</button>
       </div>
     </div>
   );

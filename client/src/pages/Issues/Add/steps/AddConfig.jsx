@@ -108,7 +108,6 @@ export function AddConfig(props) {
   };
 
   const handleClickOutside = (event) => {
-    console.log(event.target, ref.current);
     if (ref.current && !ref.current.contains(event.target)) {
       close();
     }

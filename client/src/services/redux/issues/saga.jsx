@@ -44,9 +44,7 @@ export function* getIssueThroughApi(payload) {
 			payload.payload,
 		);
 		if ( response.status === 200) {
-			const issue = response.data.map((obj) => {
-				return formatFromApi(obj);
-			});
+			const issue = formatFromApi(response.data);
 			yield put({
 				type: TYPES.GET_ISSUE_SUCCESS,
 				payload: issue,
@@ -72,10 +70,10 @@ export function* addIssueThroughApi(payload) {
 			payload.payload,
 		);
 		if ( response.status === 200) {
-			const devices = response.data;
+			const issue = formatFromApi(response.data);
 			yield put({
 				type: TYPES.ADD_ISSUE_SUCCESS,
-				payload: devices,
+				payload: issue,
 			})
 		} else {
 			yield put({

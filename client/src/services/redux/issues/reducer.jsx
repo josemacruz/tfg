@@ -6,6 +6,7 @@ import { Map, List } from 'immutable';
 const initialState = Map({
   list: List([]),
   listServices: List([]),
+  currentIssue: List([]),
 });
 
 /** DEVICES REDUCER*/
@@ -36,6 +37,24 @@ export default (state = initialState, { type, payload }) => {
       aux = state.set('listServices', List([...issues, ...payload]));
       return aux;
 		}
+
+    case TYPES.GET_ISSUE_SUCCESS: {
+      const issue = payload;
+      aux = state.set('currentIssue', List([ { ...issue } ]));
+      return aux;
+    }
+
+    case TYPES.ADD_ISSUE_SUCCESS: {
+      const issue = payload;
+      const issuesList = state.get('list').toJS();
+      issuesList.unshift(issue);
+      aux = state.set('list', List([ ...issuesList ]));
+      return aux;
+    }
+
+    case TYPES.UPDATE_ISSUE_SUCCESS: {
+      return state;
+    }
 
     default:
       return state;

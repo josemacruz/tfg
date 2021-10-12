@@ -9,11 +9,9 @@ import { getAllServices } from '../../Add/steps/AddConfig';
 
 export function ProfileIssue(props) {
   const {
-    description,
     handleOnChange,
-    validate,
     error,
-    close,
+    values,
   } = props;
 
   const [filtersValues, setFiltersValues] = useState({});
@@ -26,6 +24,7 @@ export function ProfileIssue(props) {
     'category',
     'criticality',
     'devices',
+    'status',
   ];
 
   const getOptions = (entities) => (entities?.length ? entities
@@ -82,7 +81,11 @@ export function ProfileIssue(props) {
           <Select
             key={d}
             className="selector"
-            defaultValue
+            value={Object.entries(values).map(([key, value]) => {
+              if ( key === d) {
+                return { "label": `${value}` , "value": `${value}`};
+              }
+            })}
             placeholder={d}
             isSearchable
             onChange={(value, name) => handleOnChange(name.name, value.value)}

@@ -3,7 +3,6 @@ export const getFormattedIssues = (issues, services) => {
   const formattedIssues = [];
   if (services.length) {
     issues.forEach((issue) => {
-      console.log(issue, services)
       const family = services.find((o) => o.name === issue.serviceCode);
       const subFamily = services.find((o) => o.name === issue.serviceName);
       const newIssue = {
