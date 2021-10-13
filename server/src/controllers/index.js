@@ -41,7 +41,7 @@ const addIssue = async (req, res) => {
     },
     data: body,
   })
-  .then(function (response) {
+  .then(function () {
     res.status(200).json({ ...body });
   })
   .catch(function (error) {
@@ -62,14 +62,12 @@ const updateIssue = async (req, res) => {
     },
     data: body,
   })
-  .then(function (response) {
-    const updateIssue = response.data;
-    res.status(200).json(updateIssue);
+  .then(function () {
+    res.status(200).json({ ...body, id });
   })
   .catch(function (error) {
     res.status(404).json({ message: error.message });
   });
-
 }
 
 /** SERVICES CONTROLLERS */
@@ -175,6 +173,26 @@ const addIssueByRule = async (req, res) => {
 	});
 }
 
+const deleteIssue = async (req, res) => {
+  const id = req.params.id;
+  console.log('eliminar', id)
+  axios({
+    method: 'DELETE',
+    url: orionUrl + ":1026/v2/entities/" + id,
+    headers: {
+      'Fiware-Service': 'issues',
+      'Fiware-ServicePath': '/',
+    },
+  })
+  .then(function (response) {
+    console.log(response)
+    res.status(200).json({ id });
+  })
+  .catch(function (error) {
+    res.status(404).json({ message: error.message });
+  });
+}
+
 module.exports = {
   readIssues: readIssues,
   addIssue: addIssue,
@@ -184,4 +202,5 @@ module.exports = {
   addIssueByRule: addIssueByRule,
   updateIssue: updateIssue,
   readIssue: readIssue,
+  deleteIssue: deleteIssue,
 }
