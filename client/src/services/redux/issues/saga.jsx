@@ -96,8 +96,8 @@ export function* updateIssueThroughApi(payload) {
 			Api.updateIssue,
 			payload.payload,
 		);
-		if ( response.status === 200) {
-			const issue = response.data;
+		if (response.status === 200) {
+			const issue = formatFromApi(response.data);
 			yield put({
 				type: TYPES.UPDATE_ISSUE_SUCCESS,
 				payload: issue,
@@ -110,7 +110,6 @@ export function* updateIssueThroughApi(payload) {
 		}
 	} catch (error) {
 		yield put({
-
 			type: TYPES.UPDATE_ISSUE_ERROR,
 			payload: error,
 		});
@@ -144,6 +143,32 @@ export function* getServicesThroughApi() {
 	}
 }
 
+export function* deleteIssueThroughApi(payload) {
+	try {
+		const response = yield call(
+			Api.deleteIssue,
+			payload.payload,
+		);
+		if (response.status === 200) {
+			const id = response.data;
+			yield put({
+				type: TYPES.DELETE_ISSUE_SUCCESS,
+				payload: id,
+			})
+		} else {
+			yield put({
+				type: TYPES.DELETE_ISSUE_ERROR,
+				payload: response,
+			});
+		}
+	} catch (error) {
+		yield put({
+			type: TYPES.DELETE_ISSUE_ERROR,
+			payload: error,
+		});
+	}
+}
+
 // Watcher looking for GET_DEVICES_REQUEST
 function* watcherGetIssues() {
   yield takeEvery('GET_ISSUES_REQUEST', getIssuesThroughApi);
@@ -165,6 +190,11 @@ function* watcherGetServices() {
   yield takeEvery('GET_SERVICES_REQUEST', getServicesThroughApi);
 }
 
+function* watcherDeleteIssue() {
+  yield takeEvery('DELETE_ISSUE_REQUEST', deleteIssueThroughApi);
+}
+
+
 // Export all together
 export default function* rootSaga() {
   yield all([
@@ -173,5 +203,6 @@ export default function* rootSaga() {
 		fork(watcherUpdateIssue),
 		fork(watcherAddIssue),
 		fork(watcherGetServices),
+		fork(watcherDeleteIssue),
   ]);
 }

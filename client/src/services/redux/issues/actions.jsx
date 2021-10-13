@@ -25,3 +25,13 @@ export const getServices = (payload) => store.dispatch({
   type: TYPES.GET_SERVICES_REQUEST,
   payload,
 });
+
+export const deleteIssue = (payload) => store.dispatch({
+  type: TYPES.DELETE_ISSUE_REQUEST,
+  payload,
+});
+
+export const clearIssue = (payload) => store.dispatch({
+  type: TYPES.CLEAR_ISSUE,
+  payload,
+});

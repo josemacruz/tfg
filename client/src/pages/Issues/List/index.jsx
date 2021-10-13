@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Table from '../../../components/BasicList';
 import { Profile } from '../Profile/index';
 import './styles.scss';
-import { getIssues, getServices } from '../../../services/redux/issues/actions';
+import { deleteIssue, getIssues, getServices } from '../../../services/redux/issues/actions';
 import { useSelector } from 'react-redux';
 import { getFormattedIssues } from '../helpers';
 import Add from '../Add';
@@ -15,13 +15,14 @@ function List({ intl }) {
   const [openModal, setOpenModal] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
   const [currentRow, setCurrentRow] = useState();
+  const [validate, setValidate] = useState(false);
   const issues = useSelector((state) => state.get('issues').get('list').toJS());
   const services = useSelector((state) => state.get('issues').get('listServices').toJS());
 
   const formattedIssues = useMemo(() => getFormattedIssues(
     issues,
     services,
-  ), [issues.length, services.length]);
+  ), [JSON.stringify(issues), issues.length, services.length]);
 
   const data = formattedIssues.map((issue) => ({
     id: issue.id,
@@ -54,7 +55,7 @@ function List({ intl }) {
           </IconButton>
           <IconButton
             color="primary"
-            onClick={() => null}
+            onClick={() => handleDeleteIssue(rowData)}
           >
             <Delete />
           </IconButton>
@@ -71,6 +72,16 @@ function List({ intl }) {
     setOpenProfile(!openProfile);
     setCurrentRow(rowData.id);
   }
+
+  const handleDeleteIssue = (rowData) => {
+    const { id } = rowData;
+    console.log(rowData);
+    deleteIssue(id);
+  }
+
+  useEffect(() => {
+    if (validate) getIssues();
+  }, [validate])
 
   useEffect(() => {
     getIssues();
@@ -100,6 +111,7 @@ function List({ intl }) {
         setOpenProfile={setOpenProfile}
         close={handleOpenProfile}
         currentRow={currentRow}
+        setValidate={setValidate}
       />
       )}
     </div>

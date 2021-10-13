@@ -78,6 +78,7 @@ function Add({ open, close }) {
 					},
 				};
 				addIssue(newIssue);
+        close();
 			} else {
 				setError(true);
 			}

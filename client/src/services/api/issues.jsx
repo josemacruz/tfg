@@ -83,3 +83,17 @@ const answer = new Promise ((resolve, reject) => {
 
 return answer;
 }
+
+export const deleteIssue = async (id) => {
+  const answer = new Promise ((resolve, reject) => {
+    axios.delete(`http://172.20.0.5:8080/api/issues/delete/${id}`)
+    .then( async (res) => {
+      res = await res;
+      resolve({status: res.status, data: res.data });
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  });
+  return answer;
+}

@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ProfileIssue } from './sections';
+import ProfileIssue from './sections';
 import { Tabs, Tab } from '@mui/material';
 import { TabPanel } from '../../../components/Tabs';
 import { useSelector } from 'react-redux';
-import { getIssue, getServices, updateIssue } from '../../../services/redux/issues/actions';
+import { clearIssue, getIssue, getIssues, getServices, updateIssue } from '../../../services/redux/issues/actions';
 import { getFormattedIssues } from '../helpers';
 import { Textarea } from '@nextui-org/react';
 import './styles.scss';
 
-export function Profile({ setOpenProfile, currentRow, close }) {
+export function Profile({ setOpenProfile, currentRow, close, setValidate }) {
   const [description, setDescription] = useState();
   const [family, setFamily] = useState('');
   const [subFamily, setSubFamily] = useState('');
@@ -86,10 +86,14 @@ export function Profile({ setOpenProfile, currentRow, close }) {
 									"category-type": [category],
 									"criticality": [criticality],
 									"relationed-device": [device]
-							}
+							},
+					},
+          "dateCreated": {
+						"value": dateCreated,
 					},
 				};
         updateIssue({ id: issueFormatted.id, body: newIssue });
+        setValidate(true);
 			} else {
 				setError(true);
 			}
@@ -115,7 +119,7 @@ export function Profile({ setOpenProfile, currentRow, close }) {
 
 
   useEffect(() => {
-    if (formattedIssues.length > 0) {
+    if (formattedIssues.length) {
       const issueFormatted = formattedIssues[0];
       setDescription(issueFormatted.description);
       setFamily(issueFormatted.family.name);
@@ -140,19 +144,24 @@ export function Profile({ setOpenProfile, currentRow, close }) {
   }, [formattedIssues.length]);
 
   useEffect(() => {
-    setValues({
-      family, subFamily, orderType, category, criticality, devices: device, status,
-    });
+      setValues({
+        family, subFamily, orderType, category, criticality, devices: device, status,
+      });
   }, [family, subFamily, orderType, category, criticality, device, status]);
+
+  useEffect(() => {
+    getServices();
+  }, [getServices]);
+
+  useEffect(() => {
+    clearIssue();
+  }, [clearIssue]);
+
   useEffect(() => {
     if (currentRow) {
       getIssue({ id: currentRow });
     }
   }, [getIssue, currentRow]);
-
-  useEffect(() => {
-    getServices();
-  }, [getServices]);
 
   return (
     <div className="profileContainer" ref={ref}>

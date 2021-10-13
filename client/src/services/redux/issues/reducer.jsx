@@ -40,7 +40,6 @@ export default (state = initialState, { type, payload }) => {
 
     case TYPES.GET_ISSUE_SUCCESS: {
       const issue = payload;
-      console.log(issue.id);
       aux = state.set('currentIssue', List([ { ...issue } ]));
       return aux;
     }
@@ -54,9 +53,28 @@ export default (state = initialState, { type, payload }) => {
     }
 
     case TYPES.UPDATE_ISSUE_SUCCESS: {
-      return state;
+      const issue = payload;
+      const issueId = issue.id;
+      const issuesList = state.get('list').toJS();
+      const index = issuesList.findIndex((o) => o.id === issueId);
+      issuesList[index] = issue;
+      aux = state.set('list', List([ ...issuesList ]));
+      return aux;
     }
 
+    case TYPES.DELETE_ISSUE_SUCCESS: {
+      const issueId = payload.id;
+      const issuesList = state.get('list').toJS();
+      const index = issuesList.findIndex((o) => o.id === issueId);
+      issuesList.splice(index,1);
+      aux = state.set('list', List([ ...issuesList ]));
+      return aux;
+    }
+
+    case TYPES.CLEAR_ISSUE: {
+      return state.set('currentIssue', List([]));
+    }
+    
     default:
       return state;
   }
