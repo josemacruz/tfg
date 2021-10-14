@@ -3,15 +3,45 @@ import { Tabs, Tab } from '@mui/material';
 import { TabPanel } from '../../../components/Tabs';
 import './styles.scss';
 import { ModifyFilters } from './sections/ModifyFilters';
+import ColorPicker from '../../../components/ColorPicker';
+import ExpansionPanel from '../../../components/ExpansionPanel';
+import { updateWidget } from '../../../services/redux/widgets/actions';
 
-export function WidgetProfile({ setOpenProfile, close, widgetConfig }) {
+export function WidgetProfile({ setOpenProfile, close, config, setWidgetConfig }) {
   const [value, setValue] = useState(0);
   const ref = useRef(null);
 
   const handleOnChange = (name, value) => {
   };
 
-  const validate = () => {
+  const validate = (conditions) => {
+    const newConfig = [];
+    newConfig.push({ id: 'widget:issues', config : { ...config, conditions }});
+    setWidgetConfig(newConfig);
+    const configUpdate = {
+      "config": {
+        "value": {
+          ...config,
+          conditions
+        },
+      },
+    };
+    updateWidget({ id: 'widget:issues', body: configUpdate});
+  };
+
+  const validateColor = (colors) => {
+    const newConfig = [];
+    newConfig.push({ id: 'widget:issues', config : { ...config, colors }});
+    setWidgetConfig(newConfig);
+    const configUpdate = {
+      "config": {
+        "value": {
+          ...config,
+          colors
+        },
+      },
+    };
+    updateWidget({ id: 'widget:issues', body: configUpdate});
   };
 
   const handleClickOutside = (event) => {
@@ -47,11 +77,19 @@ export function WidgetProfile({ setOpenProfile, close, widgetConfig }) {
           <Tab label="Filtrado de Incidencias" {...a11yProps(1)}  />
         </Tabs>
         <TabPanel value={value} index={0}>
-          Hola
+        <ExpansionPanel 
+          title={'colors'}
+        >
+          <ColorPicker
+            config={config}
+            validateColor={validateColor}
+          /> 
+        </ExpansionPanel>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ModifyFilters
-            widgetConfig={widgetConfig}
+            widgetConfig={config}
+            validate={validate}
           />
         </TabPanel>
       </div>

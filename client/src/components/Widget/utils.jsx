@@ -1,11 +1,8 @@
 import colors from "../../configuration/colors";
 
-export const widgetConfig =  {
-  id: 'incidencias',
+export const widgetConfiguration =  {
+  id: 'widget:issues',
   config: {
-    appearance: {
-      hidden: ['subFamily', 'orderType'],
-    },
     colors: {
       headerColor: colors['ui-White'],
       headerTableBackground: colors['ui-White'],

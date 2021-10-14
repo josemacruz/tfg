@@ -127,7 +127,7 @@ export function Profile({ setOpenProfile, currentRow, close, setValidate }) {
       setOrderType(issueFormatted.orderType);
       setCategory(issueFormatted.category);
       setCriticality(issueFormatted.criticality);
-      setDevice(issueFormatted.devices[0]);
+      setDevice(issueFormatted.devices);
       setDateCreated(issueFormatted.dateCreated.value);
       setIssueFormatted(issueFormatted);
       setStatus(issueFormatted.status);

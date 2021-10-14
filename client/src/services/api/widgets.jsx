@@ -3,7 +3,7 @@ import axios from 'axios';
 export const readWidgets = async () => {
 
   const answer = new Promise ((resolve, reject) => {
-    fetch('http://172.20.0.5:8080/api/widget', {
+    fetch('http://172.20.0.5:8080/api/widgets', {
         method: 'GET',
       })
         .then(async (response) => {
@@ -21,7 +21,7 @@ export const readWidgets = async () => {
 export const updateWidget = async (payload) => {
   const { id, body } = payload; 
   const answer = new Promise ((resolve, reject) => {
-    axios.put(`http://172.20.0.5:8080/api/widget/${id}`, body)
+    axios.put(`http://172.20.0.5:8080/api/widgets/${id}`, body)
     .then( async (res) => {
       res = await res;
       resolve({status: res.status, data: res.data });

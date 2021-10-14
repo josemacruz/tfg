@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import IssuesFilter from './components/IssuesFilter';
 import './styles.scss';
 
-export function ModifyFilters({ widgetConfig }) {
-  const [config, setConfig] = useState(widgetConfig);
+export function ModifyFilters({ widgetConfig, validate }) {
   const [conditions, setConditions] = useState(widgetConfig.conditions)
+
+  const updateConditions = (conditions) => {
+    setConditions(conditions);
+  }
+
   return (
-    <div>
+    <>
        <IssuesFilter
         conditionState={conditions}
-        updateConditions={() => null}
-        className="AddWidgetIssues"
+        updateConditions={updateConditions}
+        className="ModifyFilters"
        />
-    </div>
+       <div className="profileFooter">
+        <button type="button" className="button" onClick={() => validate(conditions)}>Aplicar Cambios</button>
+      </div>
+    </>
   );
 }

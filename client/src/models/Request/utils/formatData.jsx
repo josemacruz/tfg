@@ -5,10 +5,10 @@ export const formatFromApi = (apiModel) => {
 		criticality: apiModel.attributes.value.criticality ?? 'low',
 		status: apiModel.status.value ?? 'open',
 		dateCreated: apiModel.dateCreated ?? '',
-		category: apiModel.attributes.value.['category-type'] ?? 'other',
-		orderType: apiModel.attributes.value['issue-type'] ?? '',
+		category: apiModel.attributes.value.['category-type'][0] ?? 'other',
+		orderType: apiModel.attributes.value['issue-type'][0] ?? '',
 		serviceCode: apiModel.service_code.value ?? '',
 		serviceName: apiModel.service_name.value ?? '',
-		devices: apiModel.attributes.value['relationed-device'] ?? '',
+		devices: apiModel.attributes.value['relationed-device'][0] ?? '',
 	});
 }

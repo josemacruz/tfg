@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import DatePickerRange from '../../../../../../components/DataPickerRange/DatePickerRange';
 import Select from '../../../../../../components/Select/index'
+import { categories, criticality, family, orderType, status, subFamily } from './utils/constants';
+
 function Contents(props) {
   const {
     condition,
@@ -13,40 +15,17 @@ function Contents(props) {
 
   const [currentCondition, setCurrenCondition] = useState(condition);
 
-  const getOptions = (entities) => (entities?.length ? entities
-    .map((o) => ({ label: o.name, value: o.value })) : []);
-
   const getFilter = (filter) => {
     const filters = {
-      category: optionsCat,
-      // criticality: getOptions(filtersValues.criticality),
-      // family: getOptions(filtersValues.family),
-      // subFamily: getOptions(filtersValues.subFamily),
-      // orderType: getOptions(filtersValues.orderType),
-      // status: getOptions(filtersValues.status),
-      // source: getOptions(sources),
+      category: categories,
+      criticality: criticality,
+      family: family,
+      subFamily: subFamily,
+      orderType: orderType,
+      status: status,
     };
     return filter ? filters[filter] : [];
   };
-
-  const options = useMemo(() => getFilter(
-    currentCondition.filter,
-  ), [currentCondition.filter, filtersValues]);
-
-  const optionsCat = {
-    goodomens: "Good Omens",
-    neverwhere: "Neverwhere",
-    stardust: "Stardust",
-    americangods: "American Gods",
-    coraline: "Coraline",
-    anansiboys: "Anansi Boys",
-    interworld: "InterWorld",
-    thegraveyardbook: "The Graveyard Book",
-    thesilverdream: "The Silver Dream",
-    theoceanattheendofthelane: "The Ocean at the End of the Lane",
-    eternityswheel: "Eternity's Wheel",
-    norsemythology: "Norse Mythology"
-  }
 
   useEffect(() => {
     if (condition) setCurrenCondition(condition);
@@ -78,18 +57,18 @@ function Contents(props) {
       {contentIndex === currentCondition.contents.length - 1 && (
         <div className="buttons m-0 p-0">
           <button
-            type="circular"
+            className="circular"
             name="plus"
             onClick={() => addContent(currentCondition)}
-          />
+          >+</button>
         </div>
       )}
       <div className="buttons m-0 p-0">
         <button
-          type="circular"
+          className="circular"
           name="minus"
           onClick={() => removeContent(currentCondition, contentIndex)}
-        />
+        >-</button>
       </div>
     </>
   );

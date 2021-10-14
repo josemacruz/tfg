@@ -175,7 +175,6 @@ const addIssueByRule = async (req, res) => {
 
 const deleteIssue = async (req, res) => {
   const id = req.params.id;
-  console.log('eliminar', id)
   axios({
     method: 'DELETE',
     url: orionUrl + ":1026/v2/entities/" + id,
@@ -185,8 +184,54 @@ const deleteIssue = async (req, res) => {
     },
   })
   .then(function (response) {
-    console.log(response)
     res.status(200).json({ id });
+  })
+  .catch(function (error) {
+    res.status(404).json({ message: error.message });
+  });
+}
+
+/** WIDGETS CONTROLLERS */
+const readWidgets = async (req, res) => {
+	axios.defaults.headers.common['Fiware-Service'] = 'widgets';
+  axios.get(orionUrl + ":1026/v2/entities")
+    .then(function (response) {
+			const issues = response.data;
+      res.status(200).json(issues);
+    })
+    .catch(function (error) {
+      res.status(404).json({ message: error.message });
+    });
+}
+
+const readWidget = async (req, res) => {
+	axios.defaults.headers.common['Fiware-Service'] = 'widgets';
+  const id = req.params.id;
+  axios.get(orionUrl + ":1026/v2/entities/" + id)
+    .then(function (response) {
+			const issue = response.data;
+      res.status(200).json(issue);
+    })
+    .catch(function (error) {
+      res.status(404).json({ message: error.message });
+    });
+}
+
+const updateWidget = async (req, res) => {
+  const body = req.body;
+  const id = req.params.id;
+  axios({
+    method: 'put',
+    url: orionUrl + ":1026/v2/entities/" + id + "/attrs",
+    headers: {
+      'Fiware-Service': 'widgets',
+      'Fiware-ServicePath': '/',
+      'Content-Type': 'application/json',
+    },
+    data: body,
+  })
+  .then(function () {
+    res.status(200).json({ ...body, id });
   })
   .catch(function (error) {
     res.status(404).json({ message: error.message });
@@ -203,4 +248,7 @@ module.exports = {
   updateIssue: updateIssue,
   readIssue: readIssue,
   deleteIssue: deleteIssue,
+  readWidgets: readWidgets,
+  readWidget: readWidget,
+  updateWidget: updateWidget,
 }

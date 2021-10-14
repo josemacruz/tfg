@@ -11,5 +11,7 @@
 	"issue.list.status": "Estado",
 	"issue.list.date": "Fecha",
 	"issue.list.category": "Categoría",
-	"issue.list.action": "Acciones"
+	"issue.list.action": "Acciones",
+	"wigetIssues.profile.addFilter": "Añadir filtro",
+	"wigetIssues.profile.removeFilters": "Eliminar filtros"
 }

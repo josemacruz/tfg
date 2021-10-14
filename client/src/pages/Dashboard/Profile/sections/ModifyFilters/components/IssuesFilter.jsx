@@ -208,17 +208,13 @@ function IssuesFilter(props) {
     <div className={`rowContainer-${className}`}>
       <div className="buttons filterButtons">
         <button
-          type={handleConditions ? 'primary' : 'secondary'}
-          className={`btn btn-${handleConditions ? 'primary' : 'secondary'}`}
+          className="button"
           onClick={addNewFilter}
-          label={(
-            <FormattedMessage
-              id="widgetIssues.wizard.step3.addFilter"
-            />
-          )}
-        >add</button>
+        ><FormattedMessage
+              id="wigetIssues.profile.addFilter"
+            /></button>
         <button type="button" className={conditions.length ? 'removeFilters-active' : 'removeFilters'} onClick={removeAllFilters}>
-          <FormattedMessage id="widgetIssues.wizard.step3.removeFilters" />
+          <FormattedMessage id="wigetIssues.profile.removeFilters" />
         </button>
       </div>
       {!!conditions.length && (

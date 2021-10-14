@@ -15,7 +15,6 @@ function ProfileIssue(props) {
     values,
     intl,
   } = props;
-
   const [filtersValues, setFiltersValues] = useState({});
   const devices = useSelector((state) => state.get('devices').get('list').toJS());
   const services = useSelector((state) => state.get('issues').get('listServices').toJS());
@@ -85,7 +84,7 @@ function ProfileIssue(props) {
             className="selector"
             value={Object.entries(values).map(([key, value]) => {
               if ( key === d) {
-                return { "label": key !== 'devices' ? intl.formatMessage({ id: `issue.list.${value}` }) : value , "value": `${value}`};
+                return { "label": key !== 'devices' ? intl.formatMessage({ id: `issue.list.${value}` }) : value , "value": value };
               }
             })}
             placeholder={d}

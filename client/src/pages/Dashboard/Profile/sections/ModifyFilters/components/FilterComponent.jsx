@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 import * as R from 'ramda';
 import Select from '../../../../../../components/Select/index';
+import { filterList } from './utils/constants';
 
 function FilterComponent(props) {
   const { condition, handleChange } = props;
@@ -39,7 +40,7 @@ function FilterComponent(props) {
       {['filter'].map((key) => (
         <Select
           name={key}
-          options={{ dateCreated: 'dateCreated', category: 'category', family: 'family' }}
+          options={filterList}
           value={conditionState[key]}
           onChange={(value) => handleSelectedChange({ [key]: value })}
         />

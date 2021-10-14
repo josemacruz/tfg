@@ -11,13 +11,14 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
     switch (alias) {
       case 'family':
         attributes[alias] = {
-          value: object[alias],
+          value: object[alias].name,
           metadata: { },
         };
         break;
       case 'subFamily':
+        console.log(object[alias])
           attributes[alias] = {
-            value: object[alias],
+            value: object[alias].name,
             metadata: { },
           };
         break;
@@ -89,7 +90,6 @@ export const formatToData  = (configuration, data) => {
 	const columns = [];
 	const rows = [];
 	const { alias = [] } = configuration.labels;
-  const { hidden = [] } = configuration.appearance;
   const { conditions = [] } = configuration;
 	let filtersData = [];
 
@@ -110,14 +110,14 @@ export const formatToData  = (configuration, data) => {
   };
 
 	Object.entries(alias).forEach(([key, value]) => {
-    if (!hidden.includes(key)) {
+  //   if (!hidden.includes(key)) {
       columns.push({
         headerName: key.includes(value) ? value : '',
         key,
         type: types[key] ?? 'string',
         filter: filters[key] ?? 'selectableFilter',
       });
-    }
+    // }
   });
 
   if (data) {

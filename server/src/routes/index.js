@@ -1,5 +1,5 @@
 const express = require('express');
-const { addIssue, readServices, readDevices, readRules, addIssueByRule, readIssues, updateIssue, readIssue, deleteIssue } = require('../controllers');
+const { addIssue, readServices, readDevices, readRules, addIssueByRule, readIssues, updateIssue, readIssue, deleteIssue, readWidget, readWidgets, updateWidget } = require('../controllers');
 const router = express.Router();
 /** ISSUES ROUTER */
 router.get('/api/issues', readIssues);
@@ -17,5 +17,10 @@ router.get('/api/devices', readDevices);
 /** RULES ROUTER */
 router.get('/api/rules', readRules);
 router.post('/api/ruleIssues', addIssueByRule);
+
+/** WIDGETS ROUTER */
+router.put('/api/widgets/:id', updateWidget);
+router.get('/api/widgets/:id', readWidget);
+router.get('/api/widgets', readWidgets);
 
 module.exports = router;	
