@@ -34,6 +34,8 @@ export function Dashboard() {
 		}
 	}, [widgets.length])
 
+	console.log(widgetConfig, 'asda');
+
 	useEffect(() => {
 		getWidget();
 		getIssues();

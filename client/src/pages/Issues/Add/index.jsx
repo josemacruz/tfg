@@ -1,19 +1,21 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import Moment from 'react-moment';
 import CustomModal from '../../../components/Modal';
 import { addIssue } from '../../../services/redux/issues/actions';
-import { AddConfig } from './steps/AddConfig';
+import AddConfig from './steps/AddConfig';
+import { AddPosition } from './steps/AddPosition';
 
-function Add({ open, close }) {
-  const [description, setDescription] = useState();
+function Add({ open, close, ...rest }) {
+  const [description, setDescription] = useState('');
   const [family, setFamily] = useState('');
   const [subFamily, setSubFamily] = useState('');
   const [orderType, setOrderType] = useState('');
   const [category, setCategory] = useState('');
   const [criticality, setCriticality] = useState('');
+  const [position, setPosition] = useState({});
   const [device, setDevice] = useState('');
   const [error, setError] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const handleOnChange = (name, value) => {
     switch (name) {
@@ -43,10 +45,24 @@ function Add({ open, close }) {
     }
   };
 
+  const handleChangePostion = (value) => {
+    setPosition(value);
+  }
+
+  const nextStep = () => {
+    if (family !== '' && subFamily !== '' && orderType !== '' &&
+    category !== '' && criticality !== '' && device !== '') {
+      setCurrentStep(currentStep + 1);
+    }
+  }
+
+  const previousStep = () => {
+    setCurrentStep(currentStep - 1);
+  }
+
   const validate = () => {
 		setError(false);
-		if (family !== '' && subFamily !== '' && orderType !== '' &&
-			category !== '' && criticality !== '' && device !== '') {
+		if (position !== '') {
 				const id = Math.floor(Math.random() * 999999);
 				const dateCreated = new Date();
 				const newIssue = {
@@ -76,6 +92,13 @@ function Add({ open, close }) {
 					"dateCreated": {
 						"value": dateCreated,
 					},
+          "location": {
+            "type": 'geo:json',
+            "value": {
+              "type": 'Point',
+              "coordinates": [position.latitude, position.longitude],
+            }
+          }
 				};
 				addIssue(newIssue);
         close();
@@ -89,13 +112,30 @@ function Add({ open, close }) {
       open={open}
       onClose={close}
     >
-      <AddConfig
+     {currentStep === 0 ? (
+       <AddConfig
         description={description}
+        family={family}
+        subFamily={subFamily}
+        category={category}
+        criticality={criticality}
+        orderType={orderType}
+        device={device}
         handleOnChange={handleOnChange}
-				validate={validate}
+				validate={nextStep}
 				error={error}
         close={close}
       />
+      ) : (
+        <AddPosition
+          handleChangePostion={handleChangePostion}
+          validate={validate}
+          previousStep={previousStep}
+          close={close}
+          error={error}
+          position={position}
+        />
+      )}
     </CustomModal>
   );
 }

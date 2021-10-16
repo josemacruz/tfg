@@ -43,6 +43,7 @@ function FilterComponent(props) {
           options={filterList}
           value={conditionState[key]}
           onChange={(value) => handleSelectedChange({ [key]: value })}
+          size={5}
         />
       ))}
     </>

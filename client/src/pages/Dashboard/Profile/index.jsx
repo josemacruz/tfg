@@ -6,13 +6,11 @@ import { ModifyFilters } from './sections/ModifyFilters';
 import ColorPicker from '../../../components/ColorPicker';
 import ExpansionPanel from '../../../components/ExpansionPanel';
 import { updateWidget } from '../../../services/redux/widgets/actions';
+import HeaderSwitch from './sections/HeaderSwitch';
 
 export function WidgetProfile({ setOpenProfile, close, config, setWidgetConfig }) {
   const [value, setValue] = useState(0);
   const ref = useRef(null);
-
-  const handleOnChange = (name, value) => {
-  };
 
   const validate = (conditions) => {
     const newConfig = [];
@@ -43,6 +41,23 @@ export function WidgetProfile({ setOpenProfile, close, config, setWidgetConfig }
     };
     updateWidget({ id: 'widget:issues', body: configUpdate});
   };
+
+  const updateHeader = (hidden) => {
+    const newConfig = [];
+    newConfig.push({ id: 'widget:issues', config : { ...config, hidden }});
+    setWidgetConfig(newConfig);
+    const configUpdate = {
+      "config": {
+        "value": {
+          ...config,
+          appearance: {
+            hidden
+          }
+        },
+      },
+    };
+    updateWidget({ id: 'widget:issues', body: configUpdate});
+  }
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -77,14 +92,28 @@ export function WidgetProfile({ setOpenProfile, close, config, setWidgetConfig }
           <Tab label="Filtrado de Incidencias" {...a11yProps(1)}  />
         </Tabs>
         <TabPanel value={value} index={0}>
-        <ExpansionPanel 
-          title={'colors'}
-        >
-          <ColorPicker
-            config={config}
-            validateColor={validateColor}
-          /> 
-        </ExpansionPanel>
+        <div className="expansionContainer">
+          <div className="expansionColors">
+            <ExpansionPanel 
+              title={'colors'}
+            >
+              <ColorPicker
+                config={config}
+                validateColor={validateColor}
+              /> 
+            </ExpansionPanel>
+          </div>
+          <div className="expansionHeader">
+            <ExpansionPanel
+              title={'cabecera'}
+            >
+              <HeaderSwitch 
+                config={config}
+                updateHeader={updateHeader}
+              />
+            </ExpansionPanel>
+          </div>
+        </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ModifyFilters

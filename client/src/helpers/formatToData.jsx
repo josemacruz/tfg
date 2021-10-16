@@ -1,7 +1,7 @@
 import Moment from "moment";
 import colors from "../configuration/colors";
 
-const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
+const getAllAttributes = (object, labelAlias, intl, exclude = []) => {
   const attributes = {};
   let currentAlias = Object.keys(labelAlias);
   if (exclude.length) {
@@ -11,39 +11,39 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
     switch (alias) {
       case 'family':
         attributes[alias] = {
-          value: object[alias].name,
+          value: intl.formatMessage({ id: `issue.list.${object[alias].name}` }),
           metadata: { },
         };
         break;
       case 'subFamily':
         console.log(object[alias])
           attributes[alias] = {
-            value: object[alias].name,
+            value: intl.formatMessage({ id: `issue.list.${object[alias].name}` }),
             metadata: { },
           };
         break;
       case 'orderType':
         attributes[alias] = {
-          value: object[alias],
+          value: intl.formatMessage({ id: `issue.list.${object[alias]}` }),
           metadata: { },
         };
         break;
       case 'category':
         attributes[alias] = {
-          value: object[alias],
+          value: intl.formatMessage({ id: `issue.list.${object[alias]}` }),
           metadata: { },
         };
         break;
       case 'dateCreated':
       case 'description':
         attributes[alias] = {
-          value: object[alias],
+          value:object[alias],
           metadata: { },
         };
         break;
       case 'criticality':
         attributes[alias] = {
-          value: object[alias],
+          value: intl.formatMessage({ id: `issue.list.${object[alias]}` }),
           metadata: {
             color: colors[`criticality-${object[alias]}`],
           },
@@ -51,31 +51,7 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
         break;
       case 'status':
         attributes[alias] = {
-          value: object[alias],
-          metadata: { },
-        };
-        break;
-      case 'id': 
-        attributes[alias] = {
-          value: object[alias],
-          metadata: { },
-        };
-        break;
-      case 'type':
-        attributes[alias] = {
-          value: object[alias],
-          metadata: { },
-        };
-        break;
-      case 'temperature':
-        attributes[alias] = {
-          value: object[alias].value,
-          metadata: { },
-        };
-        break;
-      case 'humidity':
-        attributes[alias] = {
-          value: object[alias],
+          value: intl.formatMessage({ id: `issue.list.${object[alias]}` }),
           metadata: { },
         };
         break;
@@ -86,11 +62,13 @@ const getAllAttributes = (object, labelAlias, onTranslate, exclude = []) => {
   return attributes;
 };
 
-export const formatToData  = (configuration, data) => {
+export const formatToData  = (configuration, data, intl) => {
 	const columns = [];
 	const rows = [];
 	const { alias = [] } = configuration.labels;
   const { conditions = [] } = configuration;
+  const { hidden = [] } = configuration.appearance;
+  console.log('hidd', hidden)
 	let filtersData = [];
 
 	const types = {
@@ -110,14 +88,15 @@ export const formatToData  = (configuration, data) => {
   };
 
 	Object.entries(alias).forEach(([key, value]) => {
-  //   if (!hidden.includes(key)) {
+    console.log(hidden.includes(key))
+    if (!hidden.includes(key)) {
       columns.push({
         headerName: key.includes(value) ? value : '',
         key,
         type: types[key] ?? 'string',
         filter: filters[key] ?? 'selectableFilter',
       });
-    // }
+    }
   });
 
   if (data) {
@@ -201,7 +180,7 @@ export const formatToData  = (configuration, data) => {
       } else {
         rows.push({
           id: dt.id,
-          ...getAllAttributes(dt, alias),
+          ...getAllAttributes(dt, alias, intl),
         });
       }
     });
@@ -209,7 +188,7 @@ export const formatToData  = (configuration, data) => {
       filtersData.forEach((dt) => {
         rows.push({
           id: dt.id,
-          ...getAllAttributes(dt, alias),
+          ...getAllAttributes(dt, alias, intl),
         });
       });
     }

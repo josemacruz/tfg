@@ -42,6 +42,7 @@ function Contents(props) {
             onChange={(value) => handleChange(
               { [key]: value }, currentCondition, contentIndex,
             )}
+            size={5}
           />
         ))
       ) : (

@@ -2,30 +2,29 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 export const filterList = {
-  dateCreated: <FormattedMessage id="widgetIssues.wizard.filters.date" />,
-  category: <FormattedMessage id="widgetIssues.wizard.filters.categories" />,
-  family: <FormattedMessage id="widgetIssues.wizard.filters.family" />,
-  subFamily: <FormattedMessage id="widgetIssues.wizard.filters.subfamily" />,
-  orderType: <FormattedMessage id="widgetIssues.wizard.filters.ordertype" />,
-  status: <FormattedMessage id="widgetIssues.wizard.filters.status" />,
-  criticality: <FormattedMessage id="widgetIssues.wizard.filters.severity" />,
-  source: <FormattedMessage id="widgetIssues.wizard.filters.source" />,
+  dateCreated: <FormattedMessage id="issue.list.date" />,
+  category: <FormattedMessage id="issue.list.category" />,
+  family: <FormattedMessage id="issue.list.family" />,
+  subFamily: <FormattedMessage id="issue.list.subFamily" />,
+  orderType: <FormattedMessage id="issue.list.orderType" />,
+  status: <FormattedMessage id="issue.list.status" />,
+  criticality: <FormattedMessage id="issue.list.criticality" />,
 };
 
 export const categories = {
-    other: "other",
-    luminaire: "luminaire",
-    "waste-container": "waste-container",
-    "weather-station": "weather-station",
-    "environmental-quality": "environmental-quality",
-    gps: "gps",
-    parking: "parking",
-    "electric-panel": "electric-panel",
-    health: "health",
-    videocamera: "videocamera",
-    "electric-meter": "electric-meter",
-    "water-meter": "water-meter",
-    irrigation: "irrigation",
+    other: <FormattedMessage id="issue.list.other" />,
+    luminaire: <FormattedMessage id="issue.list.luminaire" />,
+    "waste-container": <FormattedMessage id="issue.list.waste-container" />,
+    "weather-station": <FormattedMessage id="issue.list.weather-station" />,
+    "environmental-quality": <FormattedMessage id="issue.list.environmental-quality" />,
+    gps: <FormattedMessage id="issue.list.gps" />,
+    parking: <FormattedMessage id="issue.list.parking" />,
+    "electric-panel": <FormattedMessage id="issue.list.electric-panel" />,
+    health: <FormattedMessage id="issue.list.health" />,
+    videocamera: <FormattedMessage id="issue.list.videocamera" />,
+    "electric-meter": <FormattedMessage id="issue.list.electric-meter" />,
+    "water-meter": <FormattedMessage id="issue.list.water-meter" />,
+    irrigation: <FormattedMessage id="issue.list.irrigation" />,
 }
 
 export const family = {
@@ -42,13 +41,13 @@ export const orderType = {
 }
 
 export const status = {
-  open: "open",
-  close: "close",
-  "in-progress": "in-progress",
+  open: <FormattedMessage id="issue.list.open" />,
+  close: <FormattedMessage id="issue.list.close" />,
+  "in-progress": <FormattedMessage id="issue.list.in-progress" />,
 }
 
 export const criticality = {
-  low: 'low',
-  high: 'high',
-  medium: 'medium',
+  low: <FormattedMessage id="issue.list.low" />,
+  high: <FormattedMessage id="issue.list.high" />,
+  medium: <FormattedMessage id="issue.list.medium" />,
 }

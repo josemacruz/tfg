@@ -3,6 +3,9 @@ import colors from "../../configuration/colors";
 export const widgetConfiguration =  {
   id: 'widget:issues',
   config: {
+    appearance: {
+      hidden: ['orderType', 'subFamily'],
+    },
     colors: {
       headerColor: colors['ui-White'],
       headerTableBackground: colors['ui-White'],

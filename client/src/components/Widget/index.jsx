@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import './styles.scss';
 import { formatToData } from '../../helpers/formatToData';
+import { injectIntl } from 'react-intl';
 
 const Card = styled.div`
   height: 50vh;
@@ -21,11 +22,12 @@ function Widget(props) {
 		handleProfile,
 		data,
 		config,
+		intl,
 	} = props;
 
 	const [rowsData, columnsDef] = useMemo(() => formatToData(
-		config, data
-		), [config, data]);
+		config, data, intl,
+		), [config, data, intl]);
 	
 	return (
     <Card>
@@ -52,4 +54,4 @@ function Widget(props) {
   );
 }
 
-export default Widget;
+export default injectIntl(Widget);

@@ -1,16 +1,17 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const http = require("http");
+const socketIo = require('socket.io');
 const indexRouter = require('./routes/index');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
-app.use(bodyParser.json({ limit: '30mb', extended: true }))
-app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
+app.use(express.json())
 app.use(cors());
-
 app.use('/', indexRouter);
 
 const PORT = process.env.PORT|| 8080;
 
-app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`))
+server.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`))

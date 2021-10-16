@@ -3,7 +3,7 @@ import ProfileIssue from './sections';
 import { Tabs, Tab } from '@mui/material';
 import { TabPanel } from '../../../components/Tabs';
 import { useSelector } from 'react-redux';
-import { clearIssue, getIssue, getIssues, getServices, updateIssue } from '../../../services/redux/issues/actions';
+import { clearIssue, getIssue, getServices, updateIssue } from '../../../services/redux/issues/actions';
 import { getFormattedIssues } from '../helpers';
 import { Textarea } from '@nextui-org/react';
 import './styles.scss';

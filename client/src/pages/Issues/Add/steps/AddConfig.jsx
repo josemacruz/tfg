@@ -7,6 +7,7 @@ import './styles.scss';
 import { getServices } from '../../../../services/redux/issues/actions';
 import Alert from '@mui/material/Alert';
 import ClearIcon from '@mui/icons-material/Clear';
+import { injectIntl } from 'react-intl';
 
 const replaceSymbol = (text) => {
   if (text?.indexOf('_')) return text.replace(/_/g, '-');
@@ -66,14 +67,22 @@ export const getAllServices = (familyList) => {
   return [family, subFamily, orderType, category, criticality, status];
 };
 
-export function AddConfig(props) {
+function AddConfig(props) {
   const {
     description,
     handleOnChange,
     validate,
     error,
     close,
+    family,
+    subFamily,
+    category,
+    criticality,
+    orderType,
+    device,
+    intl,
   } = props;
+  console.log(intl)
 
   const [filtersValues, setFiltersValues] = useState({});
   const devices = useSelector((state) => state.get('devices').get('list').toJS());
@@ -88,8 +97,26 @@ export function AddConfig(props) {
   ];
   const ref = useRef(null);
 
+  const getValue = (filter) => {
+    const filters = {
+      category: { value: category, label: intl.formatMessage({ id: `issue.list.${category}` }) },
+      criticality: { value: criticality, label: intl.formatMessage({ id: `issue.list.${criticality}` }) },
+      family: { value: family, label: intl.formatMessage({ id: `issue.list.${family}` }) },
+      subFamily: { value: subFamily, label: intl.formatMessage({ id: `issue.list.${subFamily}` }) },
+      orderType: { value: orderType, label: intl.formatMessage({ id: `issue.list.${orderType}` }) },
+      devices: { value: device, label: device },
+    };
+
+    if (family !== '' && subFamily !== '' && orderType !== '' &&
+			category !== '' && criticality !== '' && device !== '') {
+         return filters[filter];
+      } else {
+        return '';
+      }
+  }
+
   const getOptions = (entities) => (entities?.length ? entities
-    .map((o) => ({ value: o.name, label: o.value })) : []);
+    .map((o) => ({ value: o.name, label: intl.formatMessage({ id: `issue.list.${o.value}` }) })) : []);
 
   const getDevice = (device) => (device?.length ? device
     .map((o) => ({ value: o.id, label: o.id })) : []);
@@ -159,7 +186,7 @@ export function AddConfig(props) {
           <Select
             key={d}
             className="selector"
-            defaultValue
+            defaultValue={getValue(d)}
             placeholder={d}
             isSearchable
             onChange={(value, name) => handleOnChange(name.name, value.value)}
@@ -182,10 +209,12 @@ export function AddConfig(props) {
           onChange={(event) => handleOnChange(event.target.id, event.target.value)}
         />
       </div>
-      <button onClick={validate} className="addButton">Crear issue</button>
+      <button onClick={validate} className="addButton">Next</button>
       {error && (<div className="alertContainer">
         <Alert severity="error">Error, seleccione todos los campos</Alert>
       </div>)}
   </div>
   );
 }
+
+export default injectIntl(AddConfig)
