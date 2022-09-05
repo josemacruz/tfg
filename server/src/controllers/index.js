@@ -8,6 +8,7 @@ const readIssues = async (req, res) => {
   axios.get(orionUrl + ":1026/v2/entities")
     .then(function (response) {
 			const issues = response.data;
+			console.log(issues, response);
       res.status(200).json(issues);
     })
     .catch(function (error) {
@@ -32,6 +33,7 @@ const readDevices = async (req, res) => {
 
 const addIssueByRule = async (req, res) => {
   const id = Math.floor(Math.random() * 999999);
+	console.log('OLAAAAAAAAAAAAAAAAA', res.body, req.body)
   axios({
     method: 'post',
     url: orionUrl + ":1026/v2/entities",
@@ -44,10 +46,10 @@ const addIssueByRule = async (req, res) => {
 				"id": `service-request:${id}`,
 				"type": "Open311ServiceRequest",
 				"status": {
-					"value": "closed"
+					"value": "open"
 				},
 				"description": {
-					"value": "My happy entity",
+					"value": req.body.description,
 					"type": "Text"
 				},
 				"service_code": {
@@ -57,28 +59,26 @@ const addIssueByRule = async (req, res) => {
 						"value": "Duplicate request."
 				},
 				"service_name": {
-						"value": "Aceras"
+						"value": ""
 				},
 				"service_request_id": {
 						"value": id
 				},
 				"address_string": {
-					"value": "Calle San Juan Bautista, 2"
+					"value": "C. Américo Vespucio, 41092 Sevilla"
 			},
 				"location": {
 					"type": "geo:json",
 					"value": {
 							"type": "Point",
-							"coordinates": [-3.164485591715449, 40.62785133667262]
+							"coordinates": [37.411388888889, -6.0005858333333]
 					}
 			},
 			"attributes": {
-					"value": {
-							"ISSUE_TYPE": ["Bordillo"]
-					}
+					"value": Object.keys(req.body)[0],
 			},
 			"agency_responsible": {
-				"value": "Ayuntamiento de Ciudad"
+				"value": "Universidad de Sevilla"
 			},
 			"media_url": {
 					"value": "http://exaple.org/media/638344.jpg"

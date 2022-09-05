@@ -15,7 +15,7 @@ export default function DataTable() {
 
   const rows = useMemo(() => (
     issues?.map((issue) => ({
-      id: issue.attributes.value.ISSUE_TYPE[0],
+      id: issue.attributes.value,
       status: issue.status.value,
       location: `${issue.location.value.coordinates[0]}, ${issue.location.value.coordinates[1]}`,
       description: issue.description.value,

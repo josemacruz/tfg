@@ -26,7 +26,10 @@ deviceID = 'CAmbPilas001'
 ## variables de sensores ambientales
 ambientalmin = [5,45,70,250,100,1,1,1,20]
 ambientalmax = [30,75,130,600,240,50,30,60,130]
-ambientalBase = [[10,50,75,280,120,5,5,5,25] #temperatura, humedad, ozono, dioxido de azufre, dioxido nitrogeno, monoxido de carbono,
+ambientalBase = [[10,50,75,280,120,5,5,5,25],
+                 [10,50,75,280,120,5,5,5,25],
+                 [10,50,75,280,120,5,5,5,25],
+                 [10,50,75,280,120,5,5,5,25],#temperatura, humedad, ozono, dioxido de azufre, dioxido nitrogeno, monoxido de carbono,
                  #PM2.5suspension PM10 suspension, nivel de ruido
                  ]
 ambientalID = ['CAmbPilas001']
@@ -99,7 +102,17 @@ def addDevice(deviceID = deviceID):
 						"object_id": "h", 
 						"name": "humidity", 
 						"type": "float"        	
-					}
+					},
+					{ 
+						"object_id": "co2", 
+						"name": "carbondioxide", 
+						"type": "float"        	
+					},
+					{
+						"object_id": "p", 
+						"name": "pressure", 
+						"type": "float"     
+					},
 				],
 				"protocol": "PDI-IoTA-UltraLight",
 				"transport": "HTTP",
@@ -139,6 +152,8 @@ def createSubscription():
             "condValues": [
                 "temperature",
 								"humidity"
+								"carbondioxide",
+								"pressure"
             ]
         }
     ],
@@ -156,10 +171,10 @@ def addRule():
 		'fiware-servicepath': '/',
 		'content-type': 'application/json'
 	 }
-	BODY = {
+	BODY_TEMP = {
     "name": "Temperature-rule",
-    "text":"select *,\"Temperature-rule\" as ruleName from pattern [every ev=iotEvent(cast(cast(ev.temperature?,String),float)>15.0)]",
-	"action": {
+    "text":"select *,\"Temperature-rule\" as ruleName from pattern [every ev=iotEvent(cast(cast(ev.temperature?,String),float)>45.0)]",
+		"action": {
         "type":"post",
         "parameters": {
             "url": "http://"+backendHost+":"+backendPort+"/api/ruleIssues",
@@ -169,12 +184,55 @@ def addRule():
                 "X-temperature": "${temperature}"
             },
             "json": {
-                "temperature": "${temperature}"
+                "temperature": "${temperature}",
+                 "description": "La temperatura ha superado el umbral de 45.0, su valor es ${temperature}, el nivel es elevado."
             }
         }
-   }
-}
-	r = requests.post(URL, data = json.dumps(BODY), headers = HEADERS)
+   	}
+	}
+	BODY_HUM = {
+		"name": "Humidity-rule",
+		"text":"select *,\"Humidity-rule\" as ruleName from pattern [every ev=iotEvent(cast(cast(ev.humidity?,String),float)>60.0)]",
+		"action": {
+				"type":"post",
+				"parameters": {
+						"url": "http://"+backendHost+":"+backendPort+"/api/ruleIssues",
+						"method": "POST",
+						"headers": {
+								"Content-type": "application/json",
+								"X-humidity": "${humidity}"
+						},
+						"json": {
+								"humidity": "${humidity}",
+                "description": "La humedad ha superado el umbral de 60.0, su valor es ${humidity}, el nivel es elevado."
+						}
+				}
+		}
+	}
+	BODY_PRES = {
+    "name": "Pressure-rule",
+    "text":"select *,\"Pressure-rule\" as ruleName from pattern [every ev=iotEvent(cast(cast(ev.pressure?,String),float)>129.0)]",
+		"action": {
+        "type":"post",
+        "parameters": {
+            "url": "http://"+backendHost+":"+backendPort+"/api/ruleIssues",
+            "method": "POST",
+            "headers": {
+                "Content-type": "application/json",
+                "X-pressure": "${pressure}"
+            },
+            "json": {
+                "pressure": "${pressure}",
+                "description": "La presión ha superado el umbral de 129.0, su valor es ${pressure}, se encuentra en un estado elevado."
+            }
+        }
+   	}
+	}
+	r = requests.post(URL, data = json.dumps(BODY_TEMP), headers = HEADERS)
+	print('STATUS CODE: '+str(r.status_code))
+	r = requests.post(URL, data = json.dumps(BODY_PRES), headers = HEADERS)
+	print('STATUS CODE: '+str(r.status_code))
+	r = requests.post(URL, data = json.dumps(BODY_HUM), headers = HEADERS)
 	print('STATUS CODE: '+str(r.status_code))
 
 
@@ -190,7 +248,10 @@ def sendData(deviceID,query,API_Key = API_KEY):
 
 def ambientalData(device_id):
     i = 0
-    ambientalBase[i][0] += random.uniform(-1.5, 1.5) #temperatura
+    ambientalBase[i][0] += random.uniform(-20, 50) #temperatura
+    ambientalBase[i][1] += random.uniform(-90, 140) #presion
+    ambientalBase[i][2] += random.uniform(-30, 80) #humedad
+    ambientalBase[i][3] += random.uniform(-300, 450) #co2
 
     for j in range(9):
         ambientalBase[i][j] = redondearSensores(ambientalBase[i][j])
@@ -199,7 +260,7 @@ def ambientalData(device_id):
         if ambientalBase[i][j] < ambientalmin[j]:
             ambientalBase[i][j] = ambientalmin[j]
 
-    query = 't|'+str(ambientalBase[i][0])
+    query = 't|'+str(ambientalBase[i][0])+'|p|'+str(ambientalBase[i][1])+'|h|'+str(ambientalBase[i][2])
     print(query)
     sendData(device_id,query)
 	
