@@ -1,7 +1,6 @@
 const axios = require('axios');
 
 const orionUrl = "http://172.20.0.3";
-const perseoUrl = "http://172.20.0.7";
 
 /** ISSUES CONTROLLERS */
 const readIssues = async (req, res) => {
@@ -10,73 +9,6 @@ const readIssues = async (req, res) => {
     .then(function (response) {
 			const issues = response.data;
       res.status(200).json(issues);
-    })
-    .catch(function (error) {
-      res.status(404).json({ message: error.message });
-    });
-}
-
-const readIssue = async (req, res) => {
-	axios.defaults.headers.common['Fiware-Service'] = 'issues';
-  const id = req.params.id;
-  axios.get(orionUrl + ":1026/v2/entities/" + id)
-    .then(function (response) {
-			const issue = response.data;
-      res.status(200).json(issue);
-    })
-    .catch(function (error) {
-      res.status(404).json({ message: error.message });
-    });
-}
-
-const addIssue = async (req, res) => {
-	const body = req.body;
-  axios({
-    method: 'post',
-    url: orionUrl + ":1026/v2/entities",
-    headers: {
-      'Fiware-Service': 'issues',
-      'Fiware-ServicePath': '/',
-      'Content-Type': 'application/json',
-    },
-    data: body,
-  })
-  .then(function () {
-    res.status(200).json({ ...body });
-  })
-  .catch(function (error) {
-    res.status(404).json({ message: error.message });
-  });
-}
-
-const updateIssue = async (req, res) => {
-  const body = req.body;
-  const id = req.params.id;
-  axios({
-    method: 'put',
-    url: orionUrl + ":1026/v2/entities/" + id + "/attrs",
-    headers: {
-      'Fiware-Service': 'issues',
-      'Fiware-ServicePath': '/',
-      'Content-Type': 'application/json',
-    },
-    data: body,
-  })
-  .then(function () {
-    res.status(200).json({ ...body, id });
-  })
-  .catch(function (error) {
-    res.status(404).json({ message: error.message });
-  });
-}
-
-/** SERVICES CONTROLLERS */
-const readServices = async (req, res) => {
-	axios.defaults.headers.common['Fiware-Service'] = 'services';
-  axios.get(orionUrl + ":1026/v2/entities")
-    .then(function (response) {
-			const services = response.data;
-      res.status(200).json(services);
     })
     .catch(function (error) {
       res.status(404).json({ message: error.message });
@@ -96,18 +28,7 @@ const readDevices = async (req, res) => {
     });
 }
 
-
 /** RULES CONTROLLERS */
-const readRules = async (req, res) => {
-  axios.get(perseoUrl + ":9090/rules")
-    .then(function (response) {
-      const rules = response.data;
-      res.status(200).json(rules);
-    })
-    .catch(function (error) {
-      res.status(404).json({ message: error.message });
-    });
-}
 
 const addIssueByRule = async (req, res) => {
   const id = Math.floor(Math.random() * 999999);
@@ -173,82 +94,9 @@ const addIssueByRule = async (req, res) => {
 	});
 }
 
-const deleteIssue = async (req, res) => {
-  const id = req.params.id;
-  axios({
-    method: 'DELETE',
-    url: orionUrl + ":1026/v2/entities/" + id,
-    headers: {
-      'Fiware-Service': 'issues',
-      'Fiware-ServicePath': '/',
-    },
-  })
-  .then(function (response) {
-    res.status(200).json({ id });
-  })
-  .catch(function (error) {
-    res.status(404).json({ message: error.message });
-  });
-}
-
-/** WIDGETS CONTROLLERS */
-const readWidgets = async (req, res) => {
-	axios.defaults.headers.common['Fiware-Service'] = 'widgets';
-  axios.get(orionUrl + ":1026/v2/entities")
-    .then(function (response) {
-			const issues = response.data;
-      res.status(200).json(issues);
-    })
-    .catch(function (error) {
-      res.status(404).json({ message: error.message });
-    });
-}
-
-const readWidget = async (req, res) => {
-	axios.defaults.headers.common['Fiware-Service'] = 'widgets';
-  const id = req.params.id;
-  axios.get(orionUrl + ":1026/v2/entities/" + id)
-    .then(function (response) {
-			const issue = response.data;
-      res.status(200).json(issue);
-    })
-    .catch(function (error) {
-      res.status(404).json({ message: error.message });
-    });
-}
-
-const updateWidget = async (req, res) => {
-  const body = req.body;
-  const id = req.params.id;
-  axios({
-    method: 'put',
-    url: orionUrl + ":1026/v2/entities/" + id + "/attrs",
-    headers: {
-      'Fiware-Service': 'widgets',
-      'Fiware-ServicePath': '/',
-      'Content-Type': 'application/json',
-    },
-    data: body,
-  })
-  .then(function () {
-    res.status(200).json({ ...body, id });
-  })
-  .catch(function (error) {
-    res.status(404).json({ message: error.message });
-  });
-}
 
 module.exports = {
   readIssues: readIssues,
-  addIssue: addIssue,
-  readServices: readServices,
   readDevices: readDevices,
-  readRules: readRules,
   addIssueByRule: addIssueByRule,
-  updateIssue: updateIssue,
-  readIssue: readIssue,
-  deleteIssue: deleteIssue,
-  readWidgets: readWidgets,
-  readWidget: readWidget,
-  updateWidget: updateWidget,
 }

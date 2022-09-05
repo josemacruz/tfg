@@ -3,24 +3,12 @@ const { addIssue, readServices, readDevices, readRules, addIssueByRule, readIssu
 const router = express.Router();
 /** ISSUES ROUTER */
 router.get('/api/issues', readIssues);
-router.post('/api/issues', addIssue);
-router.put('/api/issues/:id', updateIssue);
-router.get('/api/issues/:id', readIssue);
-router.delete('/api/issues/delete/:id', deleteIssue);
-
-/** SERVICES ROUTER */
-router.get('/api/services', readServices);
 
 /** DEVICES ROUTER */
 router.get('/api/devices', readDevices);
 
 /** RULES ROUTER */
-router.get('/api/rules', readRules);
 router.post('/api/ruleIssues', addIssueByRule);
 
-/** WIDGETS ROUTER */
-router.put('/api/widgets/:id', updateWidget);
-router.get('/api/widgets/:id', readWidget);
-router.get('/api/widgets', readWidgets);
 
 module.exports = router;	
