@@ -29,6 +29,18 @@ function WidgetsContainer() {
 								value={device[0]?.temperature.value/100}
 							/>
 						</div>
+						<div>
+							<span>Dioxido de carbono</span>
+							<WidgetNeedle
+								value={device[0]?.carbondioxide.value/100}
+							/>
+						</div>
+						<div>
+							<span>Presión</span>
+							<WidgetNeedle
+								value={device[0]?.pressure.value/100}
+							/>
+						</div>
 					</div>
 
 				</div>
