@@ -21,7 +21,7 @@ perseoHost = '172.20.0.7'
 perseoPort = '9090'
 backendHost = '172.20.0.5'
 backendPort = '8080'
-deviceID = 'CAmbPilas001'
+deviceID = 'ETSI001'
 
 ## variables de sensores ambientales
 ambientalmin = [5,45,70,250,100,1,1,1,20]
@@ -32,7 +32,7 @@ ambientalBase = [[10,50,75,280,120,5,5,5,25],
                  [10,50,75,280,120,5,5,5,25],#temperatura, humedad, ozono, dioxido de azufre, dioxido nitrogeno, monoxido de carbono,
                  #PM2.5suspension PM10 suspension, nivel de ruido
                  ]
-ambientalID = ['CAmbPilas001']
+ambientalID = ['ETSI001']
 ambientalAcum = [0]
 
 class RedirectText(object):
@@ -141,8 +141,10 @@ def createSubscription():
         }
     ],
     "attributes": [
-        "temperature",
-				"humidity"
+			"temperature",
+			"humidity"
+			"carbondioxide",
+			"pressure"
     ],
     "reference": "http://"+perseoHost+":"+perseoPort+"/notices",
     "duration": "P1Y",
@@ -211,7 +213,7 @@ def addRule():
 	}
 	BODY_PRES = {
     "name": "Pressure-rule",
-    "text":"select *,\"Pressure-rule\" as ruleName from pattern [every ev=iotEvent(cast(cast(ev.pressure?,String),float)>129.0)]",
+    "text":"select *,\"Pressure-rule\" as ruleName from pattern [every ev=iotEvent(cast(cast(ev.pressure?,String),float)>1013.0)]",
 		"action": {
         "type":"post",
         "parameters": {
@@ -223,7 +225,7 @@ def addRule():
             },
             "json": {
                 "pressure": "${pressure}",
-                "description": "La presión ha superado el umbral de 129.0, su valor es ${pressure}, se encuentra en un estado elevado."
+                "description": "La presión ha superado el umbral de 1013.0 hPa, su valor es ${pressure}, se encuentra en un estado elevado."
             }
         }
    	}
@@ -248,19 +250,19 @@ def sendData(deviceID,query,API_Key = API_KEY):
 
 def ambientalData(device_id):
     i = 0
-    ambientalBase[i][0] += random.uniform(-20, 50) #temperatura
-    ambientalBase[i][1] += random.uniform(-90, 140) #presion
-    ambientalBase[i][2] += random.uniform(-30, 80) #humedad
-    ambientalBase[i][3] += random.uniform(-300, 450) #co2
+    ambientalBase1 = random.randrange(25, 50, 5) #temperatura
+    ambientalBase2 = random.randrange(1015, 1020, 25) #presion
+    ambientalBase3 = random.randrange(20, 80, 10) #humedad
+    ambientalBase4 = random.randrange(3321, 6524, 1000) #co2
 
-    for j in range(9):
-        ambientalBase[i][j] = redondearSensores(ambientalBase[i][j])
-        if ambientalBase[i][j] > ambientalmax[j]:
-            ambientalBase[i][j] = ambientalmax[j]
-        if ambientalBase[i][j] < ambientalmin[j]:
-            ambientalBase[i][j] = ambientalmin[j]
+    # for j in range(9):
+    #     ambientalBase[i][j] = redondearSensores(ambientalBase[i][j])
+    #     if ambientalBase[i][j] > ambientalmax[j]:
+    #         ambientalBase[i][j] = ambientalmax[j]
+    #     if ambientalBase[i][j] < ambientalmin[j]:
+    #         ambientalBase[i][j] = ambientalmin[j]
 
-    query = 't|'+str(ambientalBase[i][0])+'|p|'+str(ambientalBase[i][1])+'|h|'+str(ambientalBase[i][2])
+    query = 't|'+str(ambientalBase1)+'|p|'+str(ambientalBase2)+'|h|'+str(ambientalBase3)+'|co2|'+str(ambientalBase4)
     print(query)
     sendData(device_id,query)
 	
