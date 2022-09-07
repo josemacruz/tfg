@@ -7,7 +7,6 @@ import * as API from '../api';
 export function* getIssuesThroughAPI() {
   try {
     const response = yield call(API.getIssues);
-    console.log(response);
 		if (response.status === 200) {
       yield put({ type: TYPES.READ_ISSUES_SUCCESS, payload: response.data });
     } else {

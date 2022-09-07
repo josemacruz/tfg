@@ -8,14 +8,21 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		background-color: #c3c3c3;
+		background-color: white;
 		padding: 1rem;
 		display: flex;
 		align-items: center;
 		height: 60px;
+		box-shadow: 0 5px 25px rgb(57 108 225 / 12%);
 		justify-content: space-between;
 		font-family: Arial, Helvetica, sans-serif;
 		width: -webkit-fill-available;
+
+		span {
+			font-size: 16px;
+			color: black;
+			font-weight: 600;
+		}
 	}
 
 	.body {
@@ -40,6 +47,11 @@
 			margin-top: 2rem;
 			flex-direction: column;
 
+			.time {
+				font-weight: bold;
+				text-decoration: underline;
+			}
+			
 			.widgets {
 				display: flex;
 				justify-content: center;

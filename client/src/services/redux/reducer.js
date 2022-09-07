@@ -24,7 +24,6 @@ export default (state = initialState, { type, payload }) => {
 			return state.set('fetching', false).set('device', payload);
 
 		case TYPES.READ_ISSUES_SUCCESS:
-			console.log(payload);
 			return state.set('fetching', false).set('listIssues', List([...payload])).set('totalIssues', payload.length);
 
 		default:

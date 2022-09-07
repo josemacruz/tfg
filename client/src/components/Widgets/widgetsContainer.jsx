@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import WidgetNeedle from "../components/widget";
+import WidgetNeedle from "./widget";
 import { useSelector } from 'react-redux';
-import { readDevice } from "../services/redux/actions";
+import { readDevice } from "../../services/redux/actions";
+import moment from 'moment';
+import "./index.scss";
 
 function WidgetsContainer() {
 	const device = useSelector((state) => state.get('redux').get('device'));
@@ -14,31 +16,35 @@ function WidgetsContainer() {
 	}, [])
 
 	return (
-		<div className="widget">
-					<span>{`Última actualización: ${device[0]?.TimeInstant.value}`}</span>
-					<div className="widgets">
-						<div>
+		<div className="widgetContainer">
+					<span className="time">{`Última actualización: ${moment(device[0]?.TimeInstant.value).format("DD MM YYYY hh:mm:ss")}`}</span>
+					<div className="widgetItem">
+						<div className="item">
 							<span>Humedad</span>
 							<WidgetNeedle
 								value={device[0]?.humidity.value/100}
+								text="g / m³"
 							/>
 						</div>
-						<div>
+						<div className="item">
 							<span>Temperatura</span>
 							<WidgetNeedle
 								value={device[0]?.temperature.value/100}
+								text="C"
 							/>
 						</div>
-						<div>
-							<span>Dioxido de carbono</span>
+						<div className="item">
+							<span>Dióxido de carbono</span>
 							<WidgetNeedle
 								value={device[0]?.carbondioxide.value/100}
+								text="%"
 							/>
 						</div>
-						<div>
-							<span>Presión</span>
+						<div className="item">
+							<span>Presión atmosférica</span>
 							<WidgetNeedle
 								value={device[0]?.pressure.value/100}
+								text="Pa"
 							/>
 						</div>
 					</div>

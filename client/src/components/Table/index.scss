@@ -1,0 +1,29 @@
+.tableContainer {
+	height: 29rem;
+	width: 100%;
+	display: flex;
+	gap: 2rem;
+	flex-direction: column;
+
+	.locationText {
+		color: #316dd3;
+		font-weight: 600;
+	}
+
+	.headerTitle {
+		color: black;
+		font-weight: bold;
+		font-size: 1rem;
+	}
+
+	.tableReload {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		.reload {
+			font-weight: 600;
+			color: black;
+		}
+	}
+}

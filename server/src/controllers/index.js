@@ -8,7 +8,6 @@ const readIssues = async (req, res) => {
   axios.get(orionUrl + ":1026/v2/entities")
     .then(function (response) {
 			const issues = response.data;
-			console.log(issues, response);
       res.status(200).json(issues);
     })
     .catch(function (error) {
@@ -33,7 +32,6 @@ const readDevices = async (req, res) => {
 
 const addIssueByRule = async (req, res) => {
   const id = Math.floor(Math.random() * 999999);
-	console.log('OLAAAAAAAAAAAAAAAAA', res.body, req.body)
   axios({
     method: 'post',
     url: orionUrl + ":1026/v2/entities",
@@ -46,7 +44,7 @@ const addIssueByRule = async (req, res) => {
 				"id": `service-request:${id}`,
 				"type": "Open311ServiceRequest",
 				"status": {
-					"value": "open"
+					"value": "Abierta"
 				},
 				"description": {
 					"value": req.body.description,

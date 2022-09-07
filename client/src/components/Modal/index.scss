@@ -1,0 +1,30 @@
+.modalContainer {
+	height: max-content;
+	width: max-content;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	z-index: 100;
+	gap: 2rem;
+	top: 17%;
+	left: 26%;
+	padding: 2rem;
+	position: absolute;
+	flex-direction: column;
+	box-shadow: 0 5px 25px rgba(24, 57, 134, 0.12);
+
+
+	.modalMap {
+		z-index: 100;
+		display: inline-block;
+	}
+
+	.modalButton {
+		color: white;
+		background-color: rgb(78, 78, 110);
+
+		&:hover {
+			background-color: #316dd3;
+		}
+	}
+}

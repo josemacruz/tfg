@@ -1,0 +1,56 @@
+.widgetContainer {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	gap: 16px;
+	margin-top: 2rem;
+	flex-direction: column;
+
+	.time {
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	
+	.widgetItem {
+		display: flex;
+		justify-content: center;
+		flex-direction: row;
+    gap: 4rem;
+		
+		.item {
+			height: 16rem;
+			min-width: 20rem;
+			display: flex;
+			font-family: "Source Sans Pro",sans-serif;
+			background: #fff;
+			border: 0.0625rem solid #ecf0fc;
+			box-shadow: 0 0.3125rem 1.25rem rgb(90 97 105 / 12%);
+			border-radius: 0.5625rem;
+			flex-direction: column;
+			cursor: default;
+			align-items: center;
+			gap: 1.5rem;
+
+			span {
+				margin-top: 2rem;
+				color: black;
+				font-size: 1.2rem;
+				font-weight: bold;
+			}
+		}
+
+		.widgetValue {
+			margin-top: 1rem;
+
+			.text {
+				font-size: 1rem;
+			}
+
+			.value {
+				color: #316dd3;
+				margin-right: 6px;
+				font-size: 4rem;
+			}
+		}
+	}
+}
