@@ -22,29 +22,29 @@ function WidgetsContainer() {
 						<div className="item">
 							<span>Humedad</span>
 							<WidgetNeedle
-								value={device[0]?.humidity.value/100}
+								value={device[0]?.humidity.value}
 								text="g / m³"
 							/>
 						</div>
 						<div className="item">
 							<span>Temperatura</span>
 							<WidgetNeedle
-								value={device[0]?.temperature.value/100}
+								value={device[0]?.temperature.value}
 								text="C"
 							/>
 						</div>
 						<div className="item">
 							<span>Dióxido de carbono</span>
 							<WidgetNeedle
-								value={device[0]?.carbondioxide.value/100}
-								text="%"
+								value={device[0]?.carbondioxide.value}
+								text="ug/m3"
 							/>
 						</div>
 						<div className="item">
 							<span>Presión atmosférica</span>
 							<WidgetNeedle
-								value={device[0]?.pressure.value/100}
-								text="Pa"
+								value={device[0]?.pressure.value}
+								text="hPa"
 							/>
 						</div>
 					</div>

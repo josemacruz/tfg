@@ -31,6 +31,7 @@ const readDevices = async (req, res) => {
 /** RULES CONTROLLERS */
 
 const addIssueByRule = async (req, res) => {
+	console.log('DENTRO', req.body);
   const id = Math.floor(Math.random() * 999999);
   axios({
     method: 'post',
@@ -84,8 +85,8 @@ const addIssueByRule = async (req, res) => {
     },
   })
   .then(function (response) {
-		const newIssue = response.data;
-		res.status(200).json(newIssue);
+		const newIssue = JSON.parse(response.config.data);
+		res.status(201).json(newIssue);
 	})
 	.catch(function (error) {
 		res.status(404).json({ message: error.message });
